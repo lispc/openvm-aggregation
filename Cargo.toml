@@ -1,0 +1,13 @@
+[workspace]
+members = [
+	"factor-example",
+	"utils",
+	"halo2-aggregation"
+]
+resolver = "2"
+
+[workspace.dependencies]
+openvm-native-recursion = { git = "https://github.com/openvm-org/openvm.git", rev = "074cb83" }
+serde_json = { version = "1.0" }
+serde = { version = "1.0", features = ["derive"] }
+
