@@ -13,12 +13,14 @@ fn exec_kernel(buf_ptr: *mut u32) {
 }
 
 fn main() {
-    let mut buf= [0u32; 48];
-    unsafe { let ptr = buf.as_mut_ptr(); 
+    let mut buf = [0u32; 48];
+    unsafe {
+        let ptr = buf.as_mut_ptr();
         println!("AAA ptr {:?}", ptr);
         exec_kernel(ptr);
-     }
-    for i in 0..48 {
-        println!("AAA {}, {}", i, buf[i]);
     }
+    for i in 0..48 {
+                println!("AAA {}, {}", i, buf[i]);
+    }
+    //println!("AAA {}", buf[0]);
 }

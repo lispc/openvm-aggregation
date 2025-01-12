@@ -2,8 +2,9 @@
 members = [
 	"factor-example",
 	"utils",
-	"halo2-aggregation"
-]
+	"halo2-aggregation",
+	"stark-aggregation",
+	"asm"]
 resolver = "2"
 
 [workspace.dependencies]

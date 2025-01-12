@@ -7,10 +7,20 @@ edition = "2021"
 
 [dependencies]
 
+serde = { version = "1.0.201", default-features = false, features = ["derive"] }
+serde_json = "1.0.117"
+serde_with = "3.11.0"
+
+halo2curves-axiom = { version = "0.5.3" } 
+p3-field = { git = "https://github.com/Plonky3/Plonky3.git", rev = "b0591e9" }
 bitcode = { version = "0.6.3", default-features = false, features = ["serde"] }
+openvm-stark-sdk = { git = "https://github.com/openvm-org/stark-backend.git", rev = "8c9f94" }
+#openvm-stark-sdk = { path = "/home/ubuntu/zzhang/openvm/crates/sdk" }
 #openvm-native-recursion = { workspace = true, features = ["static-verifier"] }
-openvm-native-recursion = { git = "https://github.com/openvm-org/openvm.git", rev = "074cb83", features = ["static-verifier"] }
-openvm-sdk = { git = "https://github.com/openvm-org/openvm.git", rev = "074cb83" }
+#openvm-native-recursion = { git = "https://github.com/openvm-org/openvm.git", rev = "7685342", features = ["static-verifier"] }
+#openvm-sdk = { git = "https://github.com/openvm-org/openvm.git", rev = "7685342" }
+openvm-sdk = { path = "/home/ubuntu/zzhang/openvm/crates/sdk" }
+openvm-instructions ={ path = "/home/ubuntu/zzhang/openvm/crates/toolchain/instructions" }
 snark-verifier-sdk = { git = "https://github.com/axiom-crypto/snark-verifier", branch = "zkvm-v0.1", default-features = false, features = [
     "loader_halo2",
     "halo2-axiom",
