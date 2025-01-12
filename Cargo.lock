@@ -4195,6 +4195,7 @@ dependencies = [
 name = "stark-aggregation"
 version = "0.1.0"
 dependencies = [
+ "halo2curves-axiom",
  "openvm 0.2.0-alpha",
 ]
 
@@ -4628,6 +4629,7 @@ dependencies = [
  "bitcode",
  "halo2curves-axiom",
  "openvm-instructions",
+ "openvm-native-compiler",
  "openvm-sdk",
  "openvm-stark-sdk",
  "p3-field",

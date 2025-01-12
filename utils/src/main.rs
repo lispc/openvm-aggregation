@@ -1,10 +1,14 @@
+use std::fmt::format;
 use std::sync::Arc;
 
 use openvm_instructions::program::Program;
 use openvm_instructions::{
     instruction::{self, Instruction},
     PhantomDiscriminant, VmOpcode,
+    PublishOpcode,
+    SystemOpcode::{PHANTOM, TERMINATE},
 };
+use openvm_native_compiler::{NativeJalOpcode, CastfOpcode};
 use openvm_sdk::{
     commit::babybear_digest_to_bn254, fs::read_agg_pk_from_file,
     verifier::root::types::RootVmVerifierInput, F,
@@ -20,6 +24,18 @@ use snark_verifier_sdk::{
 
 pub const DEFAULT_AGG_PK_PATH: &str = concat!(env!("HOME"), "/.openvm/agg.pk");
 
+const X10: usize = 10; // a0
+const X28: usize = 28; // t3
+const X29: usize = 29; // t4
+const X30: usize = 30; // t5
+const X31: usize = 31; // t6
+
+// process hint read
+// before conversion:
+// 
+// VmOpcode(1) 0 0 17 0 0 0 0    // HintInputVec
+// VmOpcode(260) 0 0 16777150 5 5 0 0    // StoreHintWord
+// VmOpcode(256) 16777143 0 16777150 5 5 0 0    // LoadV
 
 fn print_native(mem_addr: F) -> Vec<Instruction<F>> {
     vec![Instruction::<F>::phantom(
@@ -38,7 +54,6 @@ fn print_mem(mem_addr: F) -> Vec<Instruction<F>> {
     )]
 }
 fn print_register(register_idx: usize) -> Vec<Instruction<F>> {
-    // print x11
     vec![
     Instruction::<F>::phantom(
         PhantomDiscriminant(0x10 as u16),
@@ -66,12 +81,12 @@ fn print_register(register_idx: usize) -> Vec<Instruction<F>> {
     )]
 }
 
-fn load_a0_to_native(edsl_fp: usize) -> Vec<Instruction<F>> {
+fn load_register_to_native(native_addr: usize, register_idx: usize) -> Vec<Instruction<F>> {
     let as_imm = F::from_canonical_usize(0);
     let as_native = F::from_canonical_usize(5);
     let as_register = F::from_canonical_usize(1);
 
-    let dst = F::from_canonical_usize(edsl_fp);
+    let dst = F::from_canonical_usize(native_addr);
     let zero = F::from_canonical_usize(0);
 
     let op_add = VmOpcode::from_usize(0x130);
@@ -97,17 +112,14 @@ fn load_a0_to_native(edsl_fp: usize) -> Vec<Instruction<F>> {
         f: as_imm,
         g: F::from_canonical_usize(0),
     };
-    // assign x10 to dst
-    // little endian
-    let x10 = 40; // x10 is a0
     [
-        add_op((zero, as_imm), (x10 + 3, as_register)),
+        add_op((zero, as_imm), (4 * register_idx + 3, as_register)),
         shift_op(),
-        add_op((dst, as_native), (x10 + 2, as_register)),
+        add_op((dst, as_native), (4 * register_idx + 2, as_register)),
         shift_op(),
-        add_op((dst, as_native), (x10 + 1, as_register)),
+        add_op((dst, as_native), (4 * register_idx + 1, as_register)),
         shift_op(),
-        add_op((dst, as_native), (x10, as_register)),
+        add_op((dst, as_native), (4 * register_idx, as_register)),
     ]
     .into()
 }
@@ -142,8 +154,8 @@ fn u32_to_directive(x: u32) -> String {
         simm12 -= 1 << 12;
     }
     format!(
-        ".insn i {}, {}, x{}, x{}, {} // {}",
-        opcode, funct3, rd, rs1, simm12, x
+        ".insn i {}, {}, x{}, x{}, {}",
+        opcode, funct3, rd, rs1, simm12
     )
 }
 
@@ -152,23 +164,29 @@ const FUNCT3: u32 = 0b111;
 pub const LONG_FORM_INSTRUCTION_INDICATOR: u32 = (FUNCT3 << 12) + OPCODE;
 pub const GAP_INDICATOR: u32 = (1 << 25) + (FUNCT3 << 12) + OPCODE;
 
-fn convert_program_to_u32s(program: &Program<F>, pc_diff: usize) -> Vec<u32> {
-    let mut u32s = Vec::new();
-    for ins in &program.defined_instructions() {
-        u32s.push(LONG_FORM_INSTRUCTION_INDICATOR);
-        u32s.push(7);
-        u32s.push(ins.opcode.as_usize() as u32);
-        u32s.push(ins.a.as_canonical_u32());
-        u32s.push(ins.b.as_canonical_u32());
-        u32s.push(ins.c.as_canonical_u32());
-        u32s.push(ins.d.as_canonical_u32());
-        u32s.push(ins.e.as_canonical_u32());
-        u32s.push(ins.f.as_canonical_u32());
-        u32s.push(ins.g.as_canonical_u32());
-    }
-    u32s.push(GAP_INDICATOR);
-    u32s.push(pc_diff as u32);
-    u32s
+fn convert_program_to_u32s(program: &Program<F>, pc_diff: usize) -> Vec<(Vec<u32>, String)> {
+    program
+        .defined_instructions()
+        .iter()
+        .map(|ins| {
+            (vec![
+                LONG_FORM_INSTRUCTION_INDICATOR,
+                7,
+                ins.opcode.as_usize() as u32,
+                ins.a.as_canonical_u32(),
+                ins.b.as_canonical_u32(),
+                ins.c.as_canonical_u32(),
+                ins.d.as_canonical_u32(),
+                ins.e.as_canonical_u32(),
+                ins.f.as_canonical_u32(),
+                ins.g.as_canonical_u32(),
+            ], format!("{:?}", ins.opcode))
+        })
+        .chain(std::iter::once((
+            vec![GAP_INDICATOR, pc_diff as u32],
+            "GAP_INDICATOR".to_string(),
+        )))
+        .collect()
 }
 
 fn dump_simple_program() {
@@ -181,13 +199,13 @@ fn dump_simple_program() {
     // copy x10 into native[addr1]
     let native_addr = F::from_canonical_usize(16776511usize);
     let mut instructions = Vec::new();
-    let mut part1 = load_a0_to_native(native_addr.as_canonical_u32() as usize);
+    let mut part1 = load_register_to_native(native_addr.as_canonical_u32() as usize, 10);
     instructions.append(&mut part1);
     // then copy the value inside x10 back to mem[x10]
     let mut part2 = vec![
         // castf native[native_addr] to x11
         Instruction::<F> {
-            opcode: VmOpcode::from_usize(0x125), // 293, castf
+            opcode: VmOpcode::with_default_offset(CastfOpcode::CASTF), // 293, castf
             a: F::from_canonical_usize(44),
             b: native_addr,
             c: F::from_canonical_usize(0),
@@ -197,7 +215,7 @@ fn dump_simple_program() {
             g: F::from_canonical_usize(0),
         },
         Instruction::<F> {
-            opcode: VmOpcode::from_usize(0x125), // 293, castf
+            opcode: VmOpcode::with_default_offset(CastfOpcode::CASTF), // 293, castf
             a: F::from_canonical_usize(48),
             b: native_addr,
             c: F::from_canonical_usize(0),
@@ -207,7 +225,7 @@ fn dump_simple_program() {
             g: F::from_canonical_usize(0),
         },
         Instruction::<F> {
-            opcode: VmOpcode::from_usize(0x213), // riscv, storew
+            opcode: VmOpcode::with_default_offset(CastfOpcode::CASTF), // riscv, storew
             a: F::from_canonical_usize(44),
             b: F::from_canonical_usize(48),
             // another method, instead of inc "mem_addr", is that we set c to 0,1,2,..48?
@@ -224,6 +242,7 @@ fn dump_simple_program() {
 }
 
 fn dump_root_program() {
+
     // load from root_exe.bin if exist, otherwise load from pk
     let load_from_pk = std::fs::metadata("root_exe.bin").is_err();
     let root_exe = if load_from_pk {
@@ -244,9 +263,12 @@ fn dump_root_program() {
     //println!("root program: {}", root_program.program);
     let mut program = root_exe.program.clone();
     println!(
-        "total ins count: {}",
-        program.instructions_and_debug_infos.len()
+        "total ins count: {}, {}",
+        program.instructions_and_debug_infos.len(),
+        program.defined_instructions().len(),
     );
+    std::fs::write("program.txt", format!("{}", program)).expect("fail to write");
+    //return;
 
     /* 
     let predicate_check_publish = |op: &Instruction<F>| match op.opcode.as_usize() {
@@ -269,7 +291,7 @@ fn dump_root_program() {
     let mut idx = 0;
     while idx < program.instructions_and_debug_infos.len() {
         if let Some(op) = program.instructions_and_debug_infos[idx].as_ref() {
-            if op.0.opcode.as_usize() == 288 {
+            if op.0.opcode == VmOpcode::with_default_offset(PublishOpcode::PUBLISH) {
                 // 288 is publish
                 idx -= 1; // IMM
                 break;
@@ -298,7 +320,7 @@ fn dump_root_program() {
         .0
         .c;
     println!("fp {}", fp);
-    let mut instructions = load_a0_to_native(fp.as_canonical_u32() as usize);
+    let mut instructions = load_register_to_native(fp.as_canonical_u32() as usize, X29);
     //instructions.clear();
     // replace program.instructions_and_debug_infos[idx] with instructions
     program.instructions_and_debug_infos.splice(
@@ -349,7 +371,7 @@ fn dump_root_program() {
                     let instructions = vec![
                         // castf native[op.0.b] to x11
                         Instruction::<F> {
-                            opcode: VmOpcode::from_usize(0x125), // 293, castf
+                            opcode: VmOpcode::with_default_offset(CastfOpcode::CASTF),
                             a: F::from_canonical_usize(x11),
                             b: op.0.b,
                             c: F::from_canonical_usize(0),
@@ -361,7 +383,7 @@ fn dump_root_program() {
                         // copy "mem_addr" to x12
                         
                         Instruction::<F> {
-                            opcode: VmOpcode::from_usize(0x125), // 293, castf
+                            opcode: VmOpcode::with_default_offset(CastfOpcode::CASTF), // 293, castf
                             a: F::from_canonical_usize(48),
                             b: mem_addr,
                             c: F::from_canonical_usize(0),
@@ -397,8 +419,6 @@ fn dump_root_program() {
         }
         idx += 1;
     }
-    let adhoc = false;
-    if !adhoc {
         idx -= 1; // switch to HALT
         // halt
         assert_eq!(
@@ -409,31 +429,16 @@ fn dump_root_program() {
         );
         // remove last elem of program.instructions_and_debug_infos
         program.instructions_and_debug_infos.pop();
-    } else {
-        // discard all instructions after idx
-        program.instructions_and_debug_infos.truncate(idx + 1);
-        //program.instructions_and_debug_infos.remove(0);
-        /* 
-        assert_eq!(
-            program.instructions_and_debug_infos[idx]
-                .as_ref()
-                .map(|x| x.0.opcode.as_usize()),
-            Some(304)
-        );
-        */
-        //assert_eq!(program.instructions_and_debug_infos.len(), 19);
-        // delete program.instructions_and_debug_infos[12..=15]
-        //program.instructions_and_debug_infos.drain(12..16);
-    }
 
     //println!("program {}", program);
     post_process_and_write(program, "root.u32s");
+    println!("write root.u32s done");
 }
 
 fn test_bug_program() {
     let ins = 
         Instruction::<F> {
-            opcode: VmOpcode::from_usize(0x125), // 293, castf
+            opcode: VmOpcode::with_default_offset(CastfOpcode::CASTF), // 293, castf
             a: F::from_canonical_usize(44),
             b: F::from_canonical_usize(16775748),
             c: F::from_canonical_usize(0),
@@ -451,14 +456,19 @@ fn test_bug_program() {
 
 fn post_process_and_write(mut program: Program<F>, path: &str) {
     let pc_diff = handle_pc_diff(&mut program);
-    let u32s = convert_program_to_u32s(&program, pc_diff);
-    let mut u32s_str = String::new();
-    for x in u32s {
-        u32s_str.push_str(&u32_to_directive(x));
-        u32s_str.push_str("\n");
+    let assembly_and_comments = convert_program_to_u32s(&program, pc_diff);
+    let mut asm_output = String::new();
+    for (u32s, comment) in &assembly_and_comments {
+        for (idx, x) in u32s.iter().enumerate() {
+            asm_output.push_str(&u32_to_directive(*x));
+            if idx == 0 {
+                asm_output.push_str(" // ");
+                asm_output.push_str(comment);
+            }
+            asm_output.push_str("\n");
+        }
     }
-    std::fs::write(path, u32s_str).expect("fail to write");
-    // let us do the jal and pc diff trick
+    std::fs::write(path, asm_output).expect("fail to write");
 }
 /*
 fn dump_protocol() {
@@ -538,7 +548,7 @@ fn parse_proof() {
 }
 fn main() {
     //dump_simple_program();
-    dump_root_program();
+    //dump_root_program();
     //test_bug_program();
-    //parse_proof();
+    parse_proof();
 }

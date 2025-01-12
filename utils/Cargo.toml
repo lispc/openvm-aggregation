@@ -21,6 +21,7 @@ openvm-stark-sdk = { git = "https://github.com/openvm-org/stark-backend.git", re
 #openvm-sdk = { git = "https://github.com/openvm-org/openvm.git", rev = "7685342" }
 openvm-sdk = { path = "/home/ubuntu/zzhang/openvm/crates/sdk" }
 openvm-instructions ={ path = "/home/ubuntu/zzhang/openvm/crates/toolchain/instructions" }
+openvm-native-compiler = { path = "/home/ubuntu/zzhang/openvm/extensions/native/compiler" }
 snark-verifier-sdk = { git = "https://github.com/axiom-crypto/snark-verifier", branch = "zkvm-v0.1", default-features = false, features = [
     "loader_halo2",
     "halo2-axiom",
