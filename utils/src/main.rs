@@ -367,24 +367,24 @@ fn verify_root() {
 
 fn dump_root_program() {
     // load from root_exe.bin if exist, otherwise load from pk
-    let load_from_pk = std::fs::metadata("/home/ubuntu/zzhang/openvm/root_program.bin").is_err();
+    let path  = "/home/ubuntu/zzhang/openvm-aggregation/program.bin";
+    let load_from_pk = std::fs::metadata(path).is_err();
     let root_exe = if load_from_pk {
         println!("reading pk from {:?}, need minutes", DEFAULT_AGG_PK_PATH);
         let agg_pk = read_agg_pk_from_file(DEFAULT_AGG_PK_PATH).expect("invalid pk file");
         //let leaf_commitment = &agg_pk.agg_stark_pk.leaf_vm_pk.vm_pk.;
         let root_exe = &agg_pk.agg_stark_pk.root_verifier_pk.root_committed_exe;
-        let root_exe = &root_exe.exe.program;
-        let bytes = bitcode::serialize(&root_exe).expect("serialize");
-        std::fs::write("root_exe.bin", bytes).expect("fail to write");
+        let root_exe = &root_exe.exe;//.program;
+        //let bytes = bitcode::serialize(&root_exe).expect("serialize");
+        //std::fs::write("root_exe.bin", bytes).expect("fail to write");
         root_exe.clone()
     } else {
-        let path = "/home/ubuntu/zzhang/openvm/root_program.bin";
         let data = std::fs::read(path).unwrap();
         bitcode::deserialize(&data).unwrap()
     };
 
     //println!("root program: {}", root_program.program);
-    let mut program = root_exe;//.program.clone();
+    let mut program = root_exe.program.clone();
     println!(
         "total ins count: {}, {}",
         program.instructions_and_debug_infos.len(),
@@ -392,6 +392,8 @@ fn dump_root_program() {
     );
     std::fs::write("program.txt", format!("{}", program)).expect("fail to write");
     
+    let as_native = F::from_canonical_usize(5);
+
     let op_publish = VmOpcode::with_default_offset(PublishOpcode::PUBLISH).as_usize();
     let op_hintstore = VmOpcode::with_default_offset(NativeLoadStoreOpcode::SHINTW).as_usize();
     let op_phantom = VmOpcode::with_default_offset(PHANTOM).as_usize();
@@ -400,6 +402,9 @@ fn dump_root_program() {
     let op_bne = VmOpcode::with_default_offset(NativeBranchEqualOpcode(BranchEqualOpcode::BNE)).as_usize();
 
     let mut new_instructions_and_debug_infos: Vec<(Option<(Instruction<F>, Option<openvm_instructions::instruction::DebugInfo>)>, usize)> = vec![];
+    let mut hint_bits_mode = false;
+    let mut hint_bits_counter_limit = 0;
+    let mut hint_bits_counter = 0;
     for (idx, op_elem) in program.instructions_and_debug_infos.iter().enumerate() {
         if let Some(op) = op_elem.as_ref() {
             if op.0.opcode.as_usize() == op_publish {
@@ -413,19 +418,39 @@ fn dump_root_program() {
             }
             if op.0.opcode.as_usize() == op_phantom {
                 if op.0.c.as_canonical_u32() as usize == NativePhantom::HintInput as usize {
+                    // as nop
                     let instructions = print_native(F::from_canonical_usize(A0 as usize));
                     new_instructions_and_debug_infos.extend(
                         instructions.iter().map(|x| (Some((x.clone(), None)), idx * 4))
                     );
                     continue;
                 }
+                if op.0.c.as_canonical_u32() as usize == ((as_native.as_canonical_u32() as usize) << 16 | (NativePhantom::HintBits as usize)) {
+                    hint_bits_mode = true;
+                    hint_bits_counter = 0;
+                    hint_bits_counter_limit = op.0.b.as_canonical_u32() as usize;
+                    new_instructions_and_debug_infos.push((op_elem.clone(), idx * 4));
+                    continue;
+                }
             }
             if op.0.opcode.as_usize() == op_hintstore {
-                let instructions = convert_hintread(op.0.clone());
-                new_instructions_and_debug_infos.extend(
-                    instructions.iter().map(|x| (Some((x.clone(), None)), idx * 4))
-                );
-                continue;
+                if hint_bits_mode {
+                    new_instructions_and_debug_infos.push((op_elem.clone(), idx * 4));
+                    hint_bits_counter += 1;
+                    println!("in hint bits mode, counter: {}, limit {}", hint_bits_counter, hint_bits_counter_limit);
+                    if hint_bits_counter >= hint_bits_counter_limit {
+                        hint_bits_mode = false;
+                        hint_bits_counter = 0;
+                        hint_bits_counter_limit = 0;
+                    }
+                    continue;
+                } else {
+                    let instructions = convert_hintread(op.0.clone());
+                    new_instructions_and_debug_infos.extend(
+                        instructions.iter().map(|x| (Some((x.clone(), None)), idx * 4))
+                    );
+                    continue;
+                }
             }
         };
         new_instructions_and_debug_infos.push((op_elem.clone(), idx * 4));
@@ -561,17 +586,7 @@ pub struct EvmProof {
 }
 use halo2curves_axiom::bn256::Fr;
 fn parse_root_proof() {
-    let path = "/home/ubuntu/zzhang/openvm-aggregation/factor-example/root_input.in";
-    let bytes = std::fs::read(path).unwrap();
-    let input: RootVmVerifierInput<BabyBearPoseidon2Config> = bitcode::deserialize(&bytes).unwrap();
-    //input.proofs[0].commitments.
-    println!("pi {:?}", input.public_values);
-    //println!("RootVmVerifierInput {:?}", input.proofs[0].commitments);
-    /* 
-    let stdin: Vec<Vec<F>> = input.write();
-    */
-
-    let input_stream: std::collections::VecDeque<Vec<F>> = bitcode::deserialize(include_bytes!("/home/ubuntu/zzhang/openvm-aggregation/factor-example/input.stream")).expect("decode");
+    let input_stream: std::collections::VecDeque<Vec<F>> = bitcode::deserialize(include_bytes!("/home/ubuntu/zzhang/openvm-aggregation/input.stream")).expect("decode");
 
     let mut flatten_input: Vec<u32> = Vec::new();
     for (idx, x) in input_stream.into_iter().enumerate() {
@@ -623,7 +638,7 @@ fn parse_evm_proof() {
     println!("commitments2 {:?}", babybear_digest_to_bn254(&comm2));
 }
 fn main() {
-    verify_root();
-    //dump_root_program();
+    //verify_root();
+    dump_root_program();
     //parse_root_proof();
 }
