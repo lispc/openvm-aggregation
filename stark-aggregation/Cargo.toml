@@ -9,5 +9,6 @@ edition = "2021"
 #openvm = { git = "https://github.com/openvm-org/openvm.git", rev = "074cb83", features = ["std"] }
 openvm = { path = "/home/ubuntu/zzhang/openvm/crates/toolchain/openvm", features = ["std"] }
 
+bitcode = { version = "0.6.3", default-features = false, features = ["serde"] }
 halo2curves-axiom = { version = "0.5.3" } 
 

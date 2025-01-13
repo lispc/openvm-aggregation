@@ -21,20 +21,26 @@ fn exec_kernel(input: &[u32], expect_output_len: usize) -> Vec<u32> {
     let mut output_buf = vec![0u32; expect_output_len];
     let mut output_ptr: *mut u32 = output_buf.as_ptr() as *mut u32;
     let mut buf1: u32 = 0;
+    let mut buf2: u32 = 0;
     unsafe {
         asm!(
             include_str!("../../root.u32s"),
             inout("x28") input_ptr,
             inout("x29") output_ptr,
             inout("x30") buf1,
+            inout("x31") buf2,
         )
     }
     output_buf
 }
 
 fn main() {
+
+    let input: Vec<u32> = bitcode::deserialize(include_bytes!("../../flatten.input")).expect("decode");
+
+    println!("input[..50]: {:?}", &input[..50]);
     let default_pi_len = 48;
-    let pi = exec_kernel(&[], default_pi_len);
+    let pi = exec_kernel(&input, default_pi_len);
     for i in 0..48 {
         println!("AAA {}, {}", i, pi[i]);
     }

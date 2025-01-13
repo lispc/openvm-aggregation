@@ -8,9 +8,12 @@ use openvm_instructions::{
     SystemOpcode::{PHANTOM, TERMINATE},
     VmOpcode,
 };
-use openvm_native_compiler::{CastfOpcode, NativeJalOpcode};
-use openvm_rv32im_transpiler::{BaseAluOpcode, Rv32LoadStoreOpcode, MulOpcode};
+use openvm_native_recursion::hints::Hintable;
+use openvm_native_compiler::{asm::A0, CastfOpcode, NativeBranchEqualOpcode, NativeJalOpcode, NativeLoadStoreOpcode, NativePhantom};
+use openvm_rv32im_transpiler::{BaseAluOpcode, Rv32LoadStoreOpcode, MulOpcode, BranchEqualOpcode};
 use openvm_sdk::{
+    prover::RootVerifierLocalProver,
+    prover::vm::SingleSegmentVmProver,
     commit::babybear_digest_to_bn254, fs::read_agg_pk_from_file,
     verifier::root::types::RootVmVerifierInput, F,
 };
@@ -25,6 +28,8 @@ use snark_verifier_sdk::{
 
 pub const DEFAULT_AGG_PK_PATH: &str = concat!(env!("HOME"), "/.openvm/agg.pk");
 
+
+const X0: usize = 0; // x0
 const X10: usize = 10; // a0
 const X28: usize = 28; // t3
 const X29: usize = 29; // t4
@@ -114,7 +119,9 @@ fn load_register_to_native(native_addr: usize, register_idx: usize) -> Vec<Instr
         f: as_imm,
         g: F::from_canonical_usize(0),
     };
-    [
+    let mut result = vec![];
+    //result.extend(print_native(F::from_canonical_usize(A0 as usize)));
+    result.extend([
         add_op((zero, as_imm), (4 * register_idx + 3, as_register)),
         shift_op(),
         add_op((dst, as_native), (4 * register_idx + 2, as_register)),
@@ -122,8 +129,8 @@ fn load_register_to_native(native_addr: usize, register_idx: usize) -> Vec<Instr
         add_op((dst, as_native), (4 * register_idx + 1, as_register)),
         shift_op(),
         add_op((dst, as_native), (4 * register_idx, as_register)),
-    ]
-    .into()
+    ]);
+    result
 }
 
 fn handle_pc_diff(program: &mut Program<F>) -> usize {
@@ -194,6 +201,77 @@ fn convert_program_to_u32s(program: &Program<F>, pc_diff: usize) -> Vec<(Vec<u32
         .collect()
 }
 
+fn convert_hintread(op :Instruction<F>) -> Vec<Instruction<F>> {
+    // x28
+    // x30: value
+    let as_register = F::from_canonical_usize(1);
+    let as_imm = F::from_canonical_usize(0);
+    let as_mem = F::from_canonical_usize(2);
+    let as_native = F::from_canonical_usize(5);
+
+    let native_addr = op.c.as_canonical_u32() as usize;
+    let offset = op.b.as_canonical_u32() as usize;
+    let tmp_slot = A0 - 4;
+    // VmOpcode(260) 0 0 16777150 5 5 0 0    // StoreHintWord
+
+    let mut ins = vec![
+
+    Instruction::<F> {
+        opcode: VmOpcode::with_default_offset(Rv32LoadStoreOpcode::LOADW),
+        a: F::from_canonical_usize(X30 * 4),
+        b: F::from_canonical_usize(X28 * 4),
+        c: F::from_canonical_usize(0),
+        d: as_register,
+        e: as_mem,
+        f: F::from_canonical_usize(0),
+        g: F::from_canonical_usize(0),
+    }];
+    // 8 0s
+    //ins.extend(print_register(X28)); // print x28
+    //ins.extend(print_register(X30)); // print x30
+    //ins.extend(print_native(F::from_canonical_usize(A0 as usize)));
+    ins.extend(load_register_to_native(tmp_slot as usize, X30)); // print30
+    ins.extend(print_native(F::from_canonical_usize(tmp_slot as usize)));
+    ins.extend(print_native(F::from_canonical_usize(native_addr)));
+    ins.push(
+        Instruction::<F> {
+            opcode: VmOpcode::with_default_offset(NativeLoadStoreOpcode::STOREW),
+            a: F::from_canonical_usize(tmp_slot as usize),
+            b: F::from_canonical_usize(offset),
+            c: F::from_canonical_usize(native_addr),
+            d: as_native,
+            e: as_native,
+            f: F::from_canonical_usize(0),
+            g: F::from_canonical_usize(0),
+        }
+    );
+    ins.push(Instruction::<F> {
+        opcode: VmOpcode::with_default_offset(BaseAluOpcode::ADD),
+        a: F::from_canonical_usize(X28 * 4),
+        b: F::from_canonical_usize(X28 * 4),
+        c: F::from_canonical_usize(4),
+        d: as_register,
+        e: as_imm,
+        f: F::from_canonical_usize(0),
+        g: F::from_canonical_usize(0),
+    });
+    //ins.extend(print_register(X28)); // print x28
+    /* 
+    ins.push(Instruction::<F> {
+        opcode: VmOpcode::with_default_offset(SystemOpcode:),
+        a: F::from_canonical_usize(X28 * 4),
+        b: F::from_canonical_usize(X28 * 4),
+        c: F::from_canonical_usize(4),
+        d: as_register,
+        e: as_imm,
+        f: F::from_canonical_usize(0),
+        g: F::from_canonical_usize(0),
+    }
+    );
+    */
+    ins
+}
+
 fn convert_publish(op: Instruction<F>) -> Vec<Instruction<F>> {
     // VmOpcode(288) 0 16776149 16776511 0 5 5 0
     let as_imm = F::from_canonical_usize(0);
@@ -205,7 +283,7 @@ fn convert_publish(op: Instruction<F>) -> Vec<Instruction<F>> {
     let pi_idx_addr = op.c;
     // x28: input, const
     // x29: output, const
-    // x30: the pi value
+    // x30: the pi value | hint value
     // x31: the pi index
     vec![
         Instruction::<F> {
@@ -228,6 +306,9 @@ fn convert_publish(op: Instruction<F>) -> Vec<Instruction<F>> {
             f: F::from_canonical_usize(0),
             g: F::from_canonical_usize(0),
         },
+        // we need x31*=4
+        // here i add itself twice
+        // TODO: shift left by 2 bits?
         Instruction::<F> {
             opcode: VmOpcode::with_default_offset(BaseAluOpcode::ADD),
             a: F::from_canonical_usize(X31 * 4),
@@ -271,26 +352,39 @@ fn convert_publish(op: Instruction<F>) -> Vec<Instruction<F>> {
     ]
 }
 
+fn verify_root() {
+    let agg_pk = read_agg_pk_from_file(DEFAULT_AGG_PK_PATH).expect("invalid pk file");
+        
+    let prover = RootVerifierLocalProver::new(agg_pk.agg_stark_pk.root_verifier_pk);
+
+    let path = "/home/ubuntu/zzhang/openvm-aggregation/factor-example/root_input.in";
+    let bytes = std::fs::read(path).unwrap();
+    let input: RootVmVerifierInput<BabyBearPoseidon2Config> = bitcode::deserialize(&bytes).unwrap();
+    //input.proofs[0].commitments.
+    println!("height {:?}", prover.execute_for_air_heights(input.clone()));
+    let proof = SingleSegmentVmProver::prove(&prover, input.write());
+}
+
 fn dump_root_program() {
     // load from root_exe.bin if exist, otherwise load from pk
-    let load_from_pk = std::fs::metadata("root_exe.bin").is_err();
+    let load_from_pk = std::fs::metadata("/home/ubuntu/zzhang/openvm/root_program.bin").is_err();
     let root_exe = if load_from_pk {
         println!("reading pk from {:?}, need minutes", DEFAULT_AGG_PK_PATH);
         let agg_pk = read_agg_pk_from_file(DEFAULT_AGG_PK_PATH).expect("invalid pk file");
         //let leaf_commitment = &agg_pk.agg_stark_pk.leaf_vm_pk.vm_pk.;
         let root_exe = &agg_pk.agg_stark_pk.root_verifier_pk.root_committed_exe;
-        let root_exe = &root_exe.exe;
+        let root_exe = &root_exe.exe.program;
         let bytes = bitcode::serialize(&root_exe).expect("serialize");
         std::fs::write("root_exe.bin", bytes).expect("fail to write");
         root_exe.clone()
     } else {
-        let path = "root_exe.bin";
+        let path = "/home/ubuntu/zzhang/openvm/root_program.bin";
         let data = std::fs::read(path).unwrap();
         bitcode::deserialize(&data).unwrap()
     };
 
     //println!("root program: {}", root_program.program);
-    let mut program = root_exe.program.clone();
+    let mut program = root_exe;//.program.clone();
     println!(
         "total ins count: {}, {}",
         program.instructions_and_debug_infos.len(),
@@ -298,35 +392,118 @@ fn dump_root_program() {
     );
     std::fs::write("program.txt", format!("{}", program)).expect("fail to write");
     
-    let mut idx = 0;
-
     let op_publish = VmOpcode::with_default_offset(PublishOpcode::PUBLISH).as_usize();
-    while idx < program.instructions_and_debug_infos.len() {
-        if let Some(op) = program.instructions_and_debug_infos[idx].as_ref() {
+    let op_hintstore = VmOpcode::with_default_offset(NativeLoadStoreOpcode::SHINTW).as_usize();
+    let op_phantom = VmOpcode::with_default_offset(PHANTOM).as_usize();
+    let op_jal = VmOpcode::with_default_offset(NativeJalOpcode::JAL).as_usize();
+    let op_beq = VmOpcode::with_default_offset(NativeBranchEqualOpcode(BranchEqualOpcode::BEQ)).as_usize();
+    let op_bne = VmOpcode::with_default_offset(NativeBranchEqualOpcode(BranchEqualOpcode::BNE)).as_usize();
+
+    let mut new_instructions_and_debug_infos: Vec<(Option<(Instruction<F>, Option<openvm_instructions::instruction::DebugInfo>)>, usize)> = vec![];
+    for (idx, op_elem) in program.instructions_and_debug_infos.iter().enumerate() {
+        if let Some(op) = op_elem.as_ref() {
             if op.0.opcode.as_usize() == op_publish {
                 let instructions = convert_publish(op.0.clone());
-                program.instructions_and_debug_infos.splice(
-                    idx..idx + 1,
-                    instructions.iter().map(|x| Some((x.clone(), None))),
+                new_instructions_and_debug_infos.extend(
+                    instructions.iter().enumerate().map(|(inner_idx,x)| 
+                            (Some((x.clone(), None)), idx * 4)
+                        ),
                 );
-                idx += instructions.len() - 1;
+                continue;
+            }
+            if op.0.opcode.as_usize() == op_phantom {
+                if op.0.c.as_canonical_u32() as usize == NativePhantom::HintInput as usize {
+                    let instructions = print_native(F::from_canonical_usize(A0 as usize));
+                    new_instructions_and_debug_infos.extend(
+                        instructions.iter().map(|x| (Some((x.clone(), None)), idx * 4))
+                    );
+                    continue;
+                }
+            }
+            if op.0.opcode.as_usize() == op_hintstore {
+                let instructions = convert_hintread(op.0.clone());
+                new_instructions_and_debug_infos.extend(
+                    instructions.iter().map(|x| (Some((x.clone(), None)), idx * 4))
+                );
+                continue;
             }
         };
-        idx += 1;
+        new_instructions_and_debug_infos.push((op_elem.clone(), idx * 4));
     }
 
-    idx -= 1; // switch to HALT
-              // halt
-    assert_eq!(
-        program.instructions_and_debug_infos[idx]
-            .as_ref()
-            .map(|x| x.0.opcode.as_usize()),
-        Some(0)
-    );
-    // remove last elem of program.instructions_and_debug_infos
-    program.instructions_and_debug_infos.pop();
+    // 
+    // fix jump and pc
+    // step1: for all jal, collect the old_pc=>new_pc mapping
 
-    //println!("program {}", program);
+    // idx=>correct pc
+    let mut pc_rewrite = vec![];
+    for (idx, op_elem) in new_instructions_and_debug_infos.iter().enumerate() {
+        if let Some(op) = &op_elem.0 {
+            if op.0.opcode.as_usize() == op_jal  ||
+                op.0.opcode.as_usize() == op_beq ||
+                op.0.opcode.as_usize() == op_bne
+            {
+                let old_pc_diff = if op.0.opcode.as_usize() == op_jal {
+                    op.0.b.as_canonical_u32() as usize
+                } else {
+                    op.0.c.as_canonical_u32() as usize
+                };
+                let babybear = 2013265921;
+                let old_pc_target = (op_elem.1 + old_pc_diff) % babybear;
+                //println!("old pc: {}", old_pc);
+                // find the idx of new_instructions_and_debug_infos where element.1 == old_pc
+                let new_idx = new_instructions_and_debug_infos.iter().enumerate().find(|(_, x)| x.1 == old_pc_target).map(|x| x.0);
+                //if !new_pc.map(|x| x == old_pc).unwrap_or(false) {
+                //    println!("WARN: new pc == old pc {}", old_pc);
+                //}
+                match new_idx {
+                    Some(new_idx) => {
+                        let new_pc = new_idx * 4;
+                        let new_pc_diff = (new_pc + babybear - idx * 4) % babybear;
+                        if new_pc_diff != old_pc_diff {
+                            let display = |f: i32| {
+                                if f < 1_000_000 {
+                                    f
+                                } else {
+                                    f- babybear as i32
+                                }
+                            };
+                            //println!("pc rewrite idx {idx}, {}=>{:?}",display(old_pc_diff as i32), display(new_pc_diff as i32));
+                            pc_rewrite.push((idx, new_pc_diff, if op.0.opcode.as_usize() == op_jal {
+                                1 // b
+                            } else {
+                                2 // c
+                            }));
+                        }
+                    }
+                    None => {
+                        println!("WARN: fail to find new pc for old pc {}", old_pc_target);
+                    }
+                }
+            }
+        }
+    }
+    for (idx, new_pc_diff, op_idx) in pc_rewrite {
+                if op_idx == 1 {
+                    new_instructions_and_debug_infos[idx].0.as_mut().unwrap().0.b = F::from_canonical_usize(new_pc_diff);
+                } else if op_idx == 2 {
+                    new_instructions_and_debug_infos[idx].0.as_mut().unwrap().0.c = F::from_canonical_usize(new_pc_diff);
+                } else {
+                    panic!("invalid op_idx");
+                }
+    }
+
+    program.instructions_and_debug_infos = new_instructions_and_debug_infos.into_iter().map(|x| x.0).collect();
+
+    if let Some(0) = program.instructions_and_debug_infos.last().unwrap()
+    .as_ref()
+    .map(|x| x.0.opcode.as_usize()) {
+        program.instructions_and_debug_infos.pop();
+    }
+
+    
+    std::fs::write("program2.txt", format!("{}", program)).expect("fail to write");
+    
     post_process_and_write(program, "root.u32s");
     println!("write root.u32s done");
 }
@@ -383,13 +560,34 @@ pub struct EvmProof {
     pub proof: Vec<u8>,
 }
 use halo2curves_axiom::bn256::Fr;
-fn parse_proof() {
+fn parse_root_proof() {
     let path = "/home/ubuntu/zzhang/openvm-aggregation/factor-example/root_input.in";
     let bytes = std::fs::read(path).unwrap();
     let input: RootVmVerifierInput<BabyBearPoseidon2Config> = bitcode::deserialize(&bytes).unwrap();
     //input.proofs[0].commitments.
     println!("pi {:?}", input.public_values);
+    //println!("RootVmVerifierInput {:?}", input.proofs[0].commitments);
+    /* 
+    let stdin: Vec<Vec<F>> = input.write();
+    */
 
+    let input_stream: std::collections::VecDeque<Vec<F>> = bitcode::deserialize(include_bytes!("/home/ubuntu/zzhang/openvm-aggregation/factor-example/input.stream")).expect("decode");
+
+    let mut flatten_input: Vec<u32> = Vec::new();
+    for (idx, x) in input_stream.into_iter().enumerate() {
+        flatten_input.push(x.len() as u32);
+        if idx < 30 {
+        println!("len is {}", x.len());
+        }
+        for f in x {
+            flatten_input.push(f.as_canonical_u32());
+        }
+    }
+    // dump flatten_input to flatten.input
+    let flatten_input_bytes = bitcode::serialize(&flatten_input).unwrap();
+    std::fs::write("flatten.input", flatten_input_bytes).expect("fail to write");
+}
+fn parse_evm_proof() {
     let evm_proof_bytes =
         std::fs::read("/home/ubuntu/zzhang/openvm-aggregation/factor-example/openvm/evm.proof")
             .unwrap();
@@ -425,6 +623,7 @@ fn parse_proof() {
     println!("commitments2 {:?}", babybear_digest_to_bn254(&comm2));
 }
 fn main() {
-    dump_root_program();
-    //parse_proof();
+    verify_root();
+    //dump_root_program();
+    //parse_root_proof();
 }
