@@ -27,6 +27,8 @@ access_capacity = 16777216
 
 [app_vm_config.native]
 
+[app_vm_config.castf]
+
 [app_vm_config.rv32m]
 range_tuple_checker_sizes = [256, 8192]
 

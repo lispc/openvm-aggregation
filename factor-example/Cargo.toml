@@ -6,5 +6,5 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-openvm = { git = "https://github.com/openvm-org/openvm.git", rev = "074cb83", features = ["std"] }
+openvm.workspace = true
 
