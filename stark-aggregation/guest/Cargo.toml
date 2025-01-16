@@ -1,0 +1,16 @@
+[package]
+name = "stark-aggregation-guest"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+
+derivative = { workspace = true }
+serde = { workspace =  true }
+openvm = { workspace =  true }
+bitcode = { workspace =  true }
+halo2curves-axiom = { workspace =  true }
+
+

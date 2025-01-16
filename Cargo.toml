@@ -2,7 +2,8 @@
 members = [
 	#"factor-example",
 	"native-kernel-converter",
-	"stark-aggregation",
+	"stark-aggregation/guest",
+	"stark-aggregation/host",
 	#"halo2-aggregation",
 	#"asm"
 	]
@@ -33,4 +34,5 @@ serde_with = "3.11.0"
 bitcode = { version = "0.6.3", default-features = false, features = ["serde", "derive"] }
 halo2curves-axiom = { version = "0.5.3" } 
 derivative = "2.2.0"
+toml = "0.8.14"
 

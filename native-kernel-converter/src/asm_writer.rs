@@ -1,22 +1,13 @@
-
 use openvm_instructions::program::Program;
-use openvm_stark_sdk::{
-    p3_baby_bear::BabyBear as F,
-};
-use openvm_instructions::{
-    VmOpcode,
-    instruction::Instruction,
-};
+use openvm_instructions::{instruction::Instruction, VmOpcode};
+use openvm_stark_sdk::p3_baby_bear::BabyBear as F;
 
 use p3_field::{FieldAlgebra, PrimeField32};
-
 
 const OPCODE: u32 = 0x0b;
 const FUNCT3: u32 = 0b111;
 pub const LONG_FORM_INSTRUCTION_INDICATOR: u32 = (FUNCT3 << 12) + OPCODE;
 pub const GAP_INDICATOR: u32 = (1 << 25) + (FUNCT3 << 12) + OPCODE;
-
-
 
 fn u32_to_directive(x: u32) -> String {
     let opcode = x & 0b1111111;
@@ -52,7 +43,6 @@ fn handle_pc_diff(program: &mut Program<F>) -> usize {
     program.push_instruction(jal);
     pc_diff
 }
-
 
 pub fn post_process_and_write(mut program: Program<F>, path: &str) {
     let pc_diff = handle_pc_diff(&mut program);

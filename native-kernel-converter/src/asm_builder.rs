@@ -1,12 +1,6 @@
-
-use openvm_stark_sdk::{
-    p3_baby_bear::BabyBear as F,
-};
-use openvm_instructions::{
-    VmOpcode,
-    instruction::Instruction, PhantomDiscriminant
-};
-use openvm_native_compiler::{NativePhantom, FieldArithmeticOpcode};
+use openvm_instructions::{instruction::Instruction, PhantomDiscriminant, VmOpcode};
+use openvm_native_compiler::{FieldArithmeticOpcode, NativePhantom};
+use openvm_stark_sdk::p3_baby_bear::BabyBear as F;
 
 use p3_field::{FieldAlgebra, PrimeField32};
 
@@ -27,15 +21,15 @@ pub const AS_NATIVE: usize = 5;
 pub fn as_imm() -> F {
     F::from_canonical_usize(AS_IMM)
 }
-pub fn as_native() -> F{
+pub fn as_native() -> F {
     F::from_canonical_usize(AS_NATIVE)
-} 
-pub fn as_register() -> F{
+}
+pub fn as_register() -> F {
     F::from_canonical_usize(AS_REGISTER)
-} 
-pub fn as_mem()-> F {
+}
+pub fn as_mem() -> F {
     F::from_canonical_usize(AS_MEM)
-} 
+}
 
 pub fn op_add() -> VmOpcode {
     VmOpcode::with_default_offset(FieldArithmeticOpcode::ADD)
@@ -49,7 +43,7 @@ pub fn op_mul() -> VmOpcode {
 
 pub fn print_native(mem_addr: F) -> Vec<Instruction<F>> {
     vec![Instruction::<F>::phantom(
-        PhantomDiscriminant(NativePhantom::Print as u16), 
+        PhantomDiscriminant(NativePhantom::Print as u16),
         mem_addr,
         F::from_canonical_usize(0),
         AS_NATIVE as u16,
@@ -64,20 +58,21 @@ pub fn print_mem(mem_addr: F) -> Vec<Instruction<F>> {
     )]
 }
 pub fn print_register(register_idx: usize) -> Vec<Instruction<F>> {
-    [0,1,2,3].map(|idx| 
-        Instruction::<F>::phantom(
-            PhantomDiscriminant(NativePhantom::Print as u16),
-            F::from_canonical_usize(4 * register_idx + idx),
-            F::from_canonical_usize(0),
-            AS_REGISTER as u16,
-        ),
-    ).to_vec()
+    [0, 1, 2, 3]
+        .map(|idx| {
+            Instruction::<F>::phantom(
+                PhantomDiscriminant(NativePhantom::Print as u16),
+                F::from_canonical_usize(4 * register_idx + idx),
+                F::from_canonical_usize(0),
+                AS_REGISTER as u16,
+            )
+        })
+        .to_vec()
 }
 
-//////////////////// load and store ////////////////////////// 
+//////////////////// load and store //////////////////////////
 
 pub fn load_register_to_native(native_addr: usize, register_idx: usize) -> Vec<Instruction<F>> {
-
     let dst = F::from_canonical_usize(native_addr);
     let zero = F::from_canonical_usize(0);
 
