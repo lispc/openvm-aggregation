@@ -80,13 +80,6 @@ fn op_jal() -> usize {
     VmOpcode::with_default_offset(NativeJalOpcode::JAL).as_usize()
 }
 
-fn op_beq() -> usize {
-    VmOpcode::with_default_offset(NativeBranchEqualOpcode(BranchEqualOpcode::BEQ)).as_usize()
-}
-
-fn op_bne() -> usize {
-    VmOpcode::with_default_offset(NativeBranchEqualOpcode(BranchEqualOpcode::BNE)).as_usize()
-}
 
 #[derive(Debug, Default)]
 struct Context {
@@ -217,14 +210,22 @@ fn fix_pc(
     for (idx, op_elem) in new_instructions_and_debug_infos.iter().enumerate() {
         if let Some(op) = &op_elem.0 {
             if op.0.opcode.as_usize() == op_jal()
-                || op.0.opcode.as_usize() == op_beq()
-                || op.0.opcode.as_usize() == op_bne()
+                || op.0.opcode.as_usize() == op_native_beq().as_usize()
+                || op.0.opcode.as_usize() == op_native_bne().as_usize()
             {
                 let old_pc_diff = if op.0.opcode.as_usize() == op_jal() {
                     op.0.b.as_canonical_u32() as usize
                 } else {
                     op.0.c.as_canonical_u32() as usize
                 };
+                // special case for our 'beq' inside `publish` transpiling
+                if old_pc_diff == 8 {
+                    if let (Some((op, _)), _) = &new_instructions_and_debug_infos[idx + 1] {
+                        if op.opcode.as_usize() == op_halt().as_usize() {
+                            continue;
+                        }
+                    }
+                }
                 let babybear = F::ORDER_U32 as usize;
                 let old_pc_target = (op_elem.1 + old_pc_diff) % babybear;
                 //println!("old pc: {}", old_pc);

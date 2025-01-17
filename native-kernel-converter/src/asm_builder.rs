@@ -1,5 +1,6 @@
-use openvm_instructions::{instruction::Instruction, PhantomDiscriminant, VmOpcode};
-use openvm_native_compiler::{FieldArithmeticOpcode, NativePhantom};
+use openvm_instructions::{instruction::Instruction, PhantomDiscriminant, SystemOpcode, VmOpcode};
+use openvm_native_compiler::{FieldArithmeticOpcode, NativeBranchEqualOpcode, NativePhantom};
+use openvm_rv32im_transpiler::BranchEqualOpcode;
 use openvm_stark_sdk::p3_baby_bear::BabyBear as F;
 
 use p3_field::{FieldAlgebra, PrimeField32};
@@ -31,13 +32,28 @@ pub fn as_mem() -> F {
     F::from_canonical_usize(AS_MEM)
 }
 
-pub fn op_add() -> VmOpcode {
+pub fn op_native_add() -> VmOpcode {
     VmOpcode::with_default_offset(FieldArithmeticOpcode::ADD)
 }
 
-pub fn op_mul() -> VmOpcode {
+pub fn op_native_mul() -> VmOpcode {
     VmOpcode::with_default_offset(FieldArithmeticOpcode::MUL)
 }
+
+
+pub fn op_native_beq() -> VmOpcode {
+    VmOpcode::with_default_offset(NativeBranchEqualOpcode(BranchEqualOpcode::BEQ))
+}
+
+
+pub fn op_native_bne() -> VmOpcode {
+    VmOpcode::with_default_offset(NativeBranchEqualOpcode(BranchEqualOpcode::BNE))
+}
+
+pub fn op_halt() -> VmOpcode {
+    VmOpcode::with_default_offset(SystemOpcode::TERMINATE)
+}
+
 
 /////////////////// debug //////////////////////////
 
@@ -77,7 +93,7 @@ pub fn load_register_to_native(native_addr: usize, register_idx: usize) -> Vec<I
     let zero = F::from_canonical_usize(0);
 
     let add_op = |(b, as_b), (c, as_c)| Instruction::<F> {
-        opcode: op_add(),
+        opcode: op_native_add(),
         a: dst,
         b: b,
         c: F::from_canonical_usize(c),
@@ -87,7 +103,7 @@ pub fn load_register_to_native(native_addr: usize, register_idx: usize) -> Vec<I
         g: F::from_canonical_usize(0),
     };
     let shift_op = || Instruction::<F> {
-        opcode: op_mul(),
+        opcode: op_native_mul(),
         a: dst,
         b: dst,
         c: F::from_canonical_usize(256),
