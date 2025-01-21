@@ -1,4 +1,6 @@
-use openvm_instructions::{instruction::Instruction, PhantomDiscriminant, SysPhantom, SystemOpcode, VmOpcode};
+use openvm_instructions::{
+    instruction::Instruction, PhantomDiscriminant, SysPhantom, SystemOpcode, VmOpcode,
+};
 use openvm_native_compiler::{asm::A0, CastfOpcode, NativeLoadStoreOpcode, NativePhantom};
 use openvm_rv32im_transpiler::{BaseAluOpcode, Rv32LoadStoreOpcode};
 use openvm_stark_sdk::p3_baby_bear::BabyBear as F;
@@ -58,72 +60,70 @@ pub fn convert_hintread(op: Instruction<F>) -> Vec<Instruction<F>> {
 
 pub fn convert_publish(op: Instruction<F>) -> Vec<Instruction<F>> {
     /*
-        step1: x31 = x29 + 4 * pi.index
-        step2: load [x31] to x30 (it is the expected value)
-        step3: load_register_to_native(x30, A0-1)
-        step4: if [A0-1] != [pi_value_addr], fail
-     */
+       step1: x31 = x29 + 4 * pi.index
+       step2: load [x31] to x30 (it is the expected value)
+       step3: load_register_to_native(x30, A0-1)
+       step4: if [A0-1] != [pi_value_addr], fail
+    */
     let pi_value_addr = op.b;
     let pi_idx_addr = op.c;
     let tmp_slot = A0 - 4;
     let mut results = vec![
-
-    // castf pi_idx to x31
-    Instruction::<F> {
-        opcode: VmOpcode::with_default_offset(CastfOpcode::CASTF),
-        a: F::from_canonical_usize(X31 * 4),
-        b: pi_idx_addr,
-        c: F::from_canonical_usize(0),
-        d: as_register(),
-        e: as_native(),
-        f: F::from_canonical_usize(0),
-        g: F::from_canonical_usize(0),
-    },
-    // x31 *= 2
-    Instruction::<F> {
-
-        opcode: VmOpcode::with_default_offset(BaseAluOpcode::ADD),
-        a: F::from_canonical_usize(X31 * 4),
-        b: F::from_canonical_usize(X31 * 4),
-        c: F::from_canonical_usize(X31 * 4),
-        d: as_register(),
-        e: as_register(),
-        f: F::from_canonical_usize(0),
-        g: F::from_canonical_usize(0),
-    },
-    // x31 *= 2
-    Instruction::<F> {
-        opcode: VmOpcode::with_default_offset(BaseAluOpcode::ADD),
-        a: F::from_canonical_usize(X31 * 4),
-        b: F::from_canonical_usize(X31 * 4),
-        c: F::from_canonical_usize(X31 * 4),
-        d: as_register(),
-        e: as_register(),
-        f: F::from_canonical_usize(0),
-        g: F::from_canonical_usize(0),
-    },
-    // x31 += x29
-    Instruction::<F> {
-        opcode: VmOpcode::with_default_offset(BaseAluOpcode::ADD),
-        a: F::from_canonical_usize(X31 * 4),
-        b: F::from_canonical_usize(X31 * 4),
-        c: F::from_canonical_usize(X29 * 4),
-        d: as_register(),
-        e: as_register(),
-        f: F::from_canonical_usize(0),
-        g: F::from_canonical_usize(0),
-    },
-    // load [x31] to x30
-    Instruction::<F> {
-        opcode: VmOpcode::with_default_offset(Rv32LoadStoreOpcode::LOADW),
-        a: F::from_canonical_usize(X30 * 4),
-        b: F::from_canonical_usize(X31 * 4),
-        c: F::from_canonical_usize(0),
-        d: as_register(),
-        e: as_mem(),
-        f: F::from_canonical_usize(0),
-        g: F::from_canonical_usize(0),
-    },
+        // castf pi_idx to x31
+        Instruction::<F> {
+            opcode: VmOpcode::with_default_offset(CastfOpcode::CASTF),
+            a: F::from_canonical_usize(X31 * 4),
+            b: pi_idx_addr,
+            c: F::from_canonical_usize(0),
+            d: as_register(),
+            e: as_native(),
+            f: F::from_canonical_usize(0),
+            g: F::from_canonical_usize(0),
+        },
+        // x31 *= 2
+        Instruction::<F> {
+            opcode: VmOpcode::with_default_offset(BaseAluOpcode::ADD),
+            a: F::from_canonical_usize(X31 * 4),
+            b: F::from_canonical_usize(X31 * 4),
+            c: F::from_canonical_usize(X31 * 4),
+            d: as_register(),
+            e: as_register(),
+            f: F::from_canonical_usize(0),
+            g: F::from_canonical_usize(0),
+        },
+        // x31 *= 2
+        Instruction::<F> {
+            opcode: VmOpcode::with_default_offset(BaseAluOpcode::ADD),
+            a: F::from_canonical_usize(X31 * 4),
+            b: F::from_canonical_usize(X31 * 4),
+            c: F::from_canonical_usize(X31 * 4),
+            d: as_register(),
+            e: as_register(),
+            f: F::from_canonical_usize(0),
+            g: F::from_canonical_usize(0),
+        },
+        // x31 += x29
+        Instruction::<F> {
+            opcode: VmOpcode::with_default_offset(BaseAluOpcode::ADD),
+            a: F::from_canonical_usize(X31 * 4),
+            b: F::from_canonical_usize(X31 * 4),
+            c: F::from_canonical_usize(X29 * 4),
+            d: as_register(),
+            e: as_register(),
+            f: F::from_canonical_usize(0),
+            g: F::from_canonical_usize(0),
+        },
+        // load [x31] to x30
+        Instruction::<F> {
+            opcode: VmOpcode::with_default_offset(Rv32LoadStoreOpcode::LOADW),
+            a: F::from_canonical_usize(X30 * 4),
+            b: F::from_canonical_usize(X31 * 4),
+            c: F::from_canonical_usize(0),
+            d: as_register(),
+            e: as_mem(),
+            f: F::from_canonical_usize(0),
+            g: F::from_canonical_usize(0),
+        },
     ];
     results.extend(load_register_to_native(tmp_slot as usize, X30));
     // if [A0-1] += [pi_value_addr], pc += 8
@@ -149,18 +149,17 @@ pub fn convert_publish(op: Instruction<F>) -> Vec<Instruction<F>> {
             f: F::from_canonical_usize(0),
             g: F::from_canonical_usize(0),
         },
-        /* 
+        /*
         Instruction::phantom(
-            PhantomDiscriminant(SysPhantom::DebugPanic as u16), 
-            F::ZERO, 
-            F::ZERO, 
+            PhantomDiscriminant(SysPhantom::DebugPanic as u16),
+            F::ZERO,
+            F::ZERO,
             0,
         )
-        */]);
+        */
+    ]);
     results
-
 }
-
 
 pub fn convert_publish_old(op: Instruction<F>) -> Vec<Instruction<F>> {
     /*
@@ -171,7 +170,6 @@ pub fn convert_publish_old(op: Instruction<F>) -> Vec<Instruction<F>> {
     step2: x31 = x29 + 4 * pi.index
     step3: storew x30 to x31
      */
-
 
     // example instruction: VmOpcode(288) 0 16776149 16776511 0 5 5 0
     let pi_value_addr = op.b;

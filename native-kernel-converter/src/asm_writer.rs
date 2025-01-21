@@ -1,5 +1,6 @@
 use openvm_instructions::program::Program;
 use openvm_instructions::{instruction::Instruction, VmOpcode};
+use openvm_native_compiler::NativeJalOpcode;
 use openvm_stark_sdk::p3_baby_bear::BabyBear as F;
 
 use p3_field::{FieldAlgebra, PrimeField32};
@@ -31,7 +32,7 @@ fn handle_pc_diff(program: &mut Program<F>) -> usize {
     }
     pc_diff += 9; // for next jal
     let jal = Instruction::<F> {
-        opcode: VmOpcode::from_usize(0x115),
+        opcode: VmOpcode::with_default_offset(NativeJalOpcode::JAL),
         a: F::from_canonical_usize(1 << 24 - 8), // A0
         b: F::from_canonical_usize(4 * (pc_diff + 1)),
         c: F::from_canonical_usize(0),
@@ -66,6 +67,7 @@ fn convert_program_to_u32s(program: &Program<F>, pc_diff: usize) -> Vec<(Vec<u32
         .defined_instructions()
         .iter()
         .map(|ins| {
+            assert_ne!(ins.opcode.as_usize(), 259);
             (
                 vec![
                     LONG_FORM_INSTRUCTION_INDICATOR,

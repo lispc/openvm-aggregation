@@ -40,11 +40,9 @@ pub fn op_native_mul() -> VmOpcode {
     VmOpcode::with_default_offset(FieldArithmeticOpcode::MUL)
 }
 
-
 pub fn op_native_beq() -> VmOpcode {
     VmOpcode::with_default_offset(NativeBranchEqualOpcode(BranchEqualOpcode::BEQ))
 }
-
 
 pub fn op_native_bne() -> VmOpcode {
     VmOpcode::with_default_offset(NativeBranchEqualOpcode(BranchEqualOpcode::BNE))
@@ -53,7 +51,6 @@ pub fn op_native_bne() -> VmOpcode {
 pub fn op_halt() -> VmOpcode {
     VmOpcode::with_default_offset(SystemOpcode::TERMINATE)
 }
-
 
 /////////////////// debug //////////////////////////
 

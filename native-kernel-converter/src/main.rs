@@ -80,7 +80,6 @@ fn op_jal() -> usize {
     VmOpcode::with_default_offset(NativeJalOpcode::JAL).as_usize()
 }
 
-
 #[derive(Debug, Default)]
 struct Context {
     hint_bits_mode: bool,

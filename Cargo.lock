@@ -1756,22 +1756,7 @@ dependencies = [
  "num-integer",
  "num-traits",
  "rand",
-]
-
-[[package]]
-name = "num-bigint-dig"
-version = "0.8.4"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "dc84195820f291c7697304f3cbdadd1cb7199c0efc917ff5eafd71225c136151"
-dependencies = [
- "byteorder",
- "lazy_static",
- "libm",
- "num-integer",
- "num-iter",
- "num-traits",
  "serde",
- "smallvec",
 ]
 
 [[package]]
@@ -1870,11 +1855,11 @@ checksum = "1261fe7e33c73b354eab43b1273a57c8f967d0391e80353e51f764ac02cf6775"
 [[package]]
 name = "openvm"
 version = "0.2.0-alpha"
-source = "git+https://github.com/scroll-tech/openvm?branch=scroll-dev-0116#3863bc2e87a8f70a36bfa261ceeb6baeb9542b01"
+source = "git+https://github.com/scroll-tech/openvm?branch=scroll-dev-0121#f841770d1cebc00bd646bd6a096ddcb0fef913a5"
 dependencies = [
  "bytemuck",
  "hex-literal",
- "num-bigint-dig",
+ "num-bigint 0.4.6",
  "num-traits",
  "openvm-platform",
  "openvm-rv32im-guest",
@@ -1884,12 +1869,12 @@ dependencies = [
 [[package]]
 name = "openvm-algebra-circuit"
 version = "0.2.0-alpha"
-source = "git+https://github.com/scroll-tech/openvm?branch=scroll-dev-0116#3863bc2e87a8f70a36bfa261ceeb6baeb9542b01"
+source = "git+https://github.com/scroll-tech/openvm?branch=scroll-dev-0121#f841770d1cebc00bd646bd6a096ddcb0fef913a5"
 dependencies = [
  "derive-new",
  "derive_more 1.0.0",
  "itertools 0.13.0",
- "num-bigint-dig",
+ "num-bigint 0.4.6",
  "num-traits",
  "openvm-algebra-transpiler",
  "openvm-circuit",
@@ -1913,7 +1898,7 @@ dependencies = [
 [[package]]
 name = "openvm-algebra-complex-macros"
 version = "0.1.0"
-source = "git+https://github.com/scroll-tech/openvm?branch=scroll-dev-0116#3863bc2e87a8f70a36bfa261ceeb6baeb9542b01"
+source = "git+https://github.com/scroll-tech/openvm?branch=scroll-dev-0121#f841770d1cebc00bd646bd6a096ddcb0fef913a5"
 dependencies = [
  "openvm-macros-common",
  "quote",
@@ -1923,10 +1908,10 @@ dependencies = [
 [[package]]
 name = "openvm-algebra-guest"
 version = "0.2.0-alpha"
-source = "git+https://github.com/scroll-tech/openvm?branch=scroll-dev-0116#3863bc2e87a8f70a36bfa261ceeb6baeb9542b01"
+source = "git+https://github.com/scroll-tech/openvm?branch=scroll-dev-0121#f841770d1cebc00bd646bd6a096ddcb0fef913a5"
 dependencies = [
  "halo2curves-axiom",
- "num-bigint-dig",
+ "num-bigint 0.4.6",
  "openvm",
  "openvm-algebra-complex-macros",
  "openvm-algebra-moduli-setup",
@@ -1939,7 +1924,7 @@ dependencies = [
 [[package]]
 name = "openvm-algebra-moduli-setup"
 version = "0.2.0-alpha"
-source = "git+https://github.com/scroll-tech/openvm?branch=scroll-dev-0116#3863bc2e87a8f70a36bfa261ceeb6baeb9542b01"
+source = "git+https://github.com/scroll-tech/openvm?branch=scroll-dev-0121#f841770d1cebc00bd646bd6a096ddcb0fef913a5"
 dependencies = [
  "openvm-macros-common",
  "quote",
@@ -1949,7 +1934,7 @@ dependencies = [
 [[package]]
 name = "openvm-algebra-transpiler"
 version = "0.2.0-alpha"
-source = "git+https://github.com/scroll-tech/openvm?branch=scroll-dev-0116#3863bc2e87a8f70a36bfa261ceeb6baeb9542b01"
+source = "git+https://github.com/scroll-tech/openvm?branch=scroll-dev-0121#f841770d1cebc00bd646bd6a096ddcb0fef913a5"
 dependencies = [
  "openvm-algebra-guest",
  "openvm-instructions",
@@ -1964,7 +1949,7 @@ dependencies = [
 [[package]]
 name = "openvm-bigint-circuit"
 version = "0.2.0-alpha"
-source = "git+https://github.com/scroll-tech/openvm?branch=scroll-dev-0116#3863bc2e87a8f70a36bfa261ceeb6baeb9542b01"
+source = "git+https://github.com/scroll-tech/openvm?branch=scroll-dev-0121#f841770d1cebc00bd646bd6a096ddcb0fef913a5"
 dependencies = [
  "derive-new",
  "derive_more 1.0.0",
@@ -1986,9 +1971,9 @@ dependencies = [
 [[package]]
 name = "openvm-bigint-guest"
 version = "0.2.0-alpha"
-source = "git+https://github.com/scroll-tech/openvm?branch=scroll-dev-0116#3863bc2e87a8f70a36bfa261ceeb6baeb9542b01"
+source = "git+https://github.com/scroll-tech/openvm?branch=scroll-dev-0121#f841770d1cebc00bd646bd6a096ddcb0fef913a5"
 dependencies = [
- "num-bigint-dig",
+ "num-bigint 0.4.6",
  "num-traits",
  "openvm",
  "openvm-platform",
@@ -1999,7 +1984,7 @@ dependencies = [
 [[package]]
 name = "openvm-bigint-transpiler"
 version = "0.2.0-alpha"
-source = "git+https://github.com/scroll-tech/openvm?branch=scroll-dev-0116#3863bc2e87a8f70a36bfa261ceeb6baeb9542b01"
+source = "git+https://github.com/scroll-tech/openvm?branch=scroll-dev-0121#f841770d1cebc00bd646bd6a096ddcb0fef913a5"
 dependencies = [
  "openvm-bigint-guest",
  "openvm-instructions",
@@ -2014,7 +1999,7 @@ dependencies = [
 [[package]]
 name = "openvm-build"
 version = "0.2.0-alpha"
-source = "git+https://github.com/scroll-tech/openvm?branch=scroll-dev-0116#3863bc2e87a8f70a36bfa261ceeb6baeb9542b01"
+source = "git+https://github.com/scroll-tech/openvm?branch=scroll-dev-0121#f841770d1cebc00bd646bd6a096ddcb0fef913a5"
 dependencies = [
  "cargo_metadata",
  "dirs",
@@ -2029,7 +2014,7 @@ dependencies = [
 [[package]]
 name = "openvm-circuit"
 version = "0.2.0-alpha"
-source = "git+https://github.com/scroll-tech/openvm?branch=scroll-dev-0116#3863bc2e87a8f70a36bfa261ceeb6baeb9542b01"
+source = "git+https://github.com/scroll-tech/openvm?branch=scroll-dev-0121#f841770d1cebc00bd646bd6a096ddcb0fef913a5"
 dependencies = [
  "async-trait",
  "backtrace",
@@ -2065,7 +2050,7 @@ dependencies = [
 [[package]]
 name = "openvm-circuit-derive"
 version = "0.2.0-alpha"
-source = "git+https://github.com/scroll-tech/openvm?branch=scroll-dev-0116#3863bc2e87a8f70a36bfa261ceeb6baeb9542b01"
+source = "git+https://github.com/scroll-tech/openvm?branch=scroll-dev-0121#f841770d1cebc00bd646bd6a096ddcb0fef913a5"
 dependencies = [
  "itertools 0.13.0",
  "proc-macro2",
@@ -2076,13 +2061,13 @@ dependencies = [
 [[package]]
 name = "openvm-circuit-primitives"
 version = "0.2.0-alpha"
-source = "git+https://github.com/scroll-tech/openvm?branch=scroll-dev-0116#3863bc2e87a8f70a36bfa261ceeb6baeb9542b01"
+source = "git+https://github.com/scroll-tech/openvm?branch=scroll-dev-0121#f841770d1cebc00bd646bd6a096ddcb0fef913a5"
 dependencies = [
  "bitcode",
  "derive-new",
  "itertools 0.13.0",
  "lazy_static",
- "num-bigint-dig",
+ "num-bigint 0.4.6",
  "num-traits",
  "openvm-circuit-primitives-derive",
  "openvm-stark-backend",
@@ -2093,7 +2078,7 @@ dependencies = [
 [[package]]
 name = "openvm-circuit-primitives-derive"
 version = "0.2.0-alpha"
-source = "git+https://github.com/scroll-tech/openvm?branch=scroll-dev-0116#3863bc2e87a8f70a36bfa261ceeb6baeb9542b01"
+source = "git+https://github.com/scroll-tech/openvm?branch=scroll-dev-0121#f841770d1cebc00bd646bd6a096ddcb0fef913a5"
 dependencies = [
  "itertools 0.13.0",
  "proc-macro2",
@@ -2104,7 +2089,7 @@ dependencies = [
 [[package]]
 name = "openvm-custom-insn"
 version = "0.1.0"
-source = "git+https://github.com/scroll-tech/openvm?branch=scroll-dev-0116#3863bc2e87a8f70a36bfa261ceeb6baeb9542b01"
+source = "git+https://github.com/scroll-tech/openvm?branch=scroll-dev-0121#f841770d1cebc00bd646bd6a096ddcb0fef913a5"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -2114,13 +2099,13 @@ dependencies = [
 [[package]]
 name = "openvm-ecc-circuit"
 version = "0.2.0-alpha"
-source = "git+https://github.com/scroll-tech/openvm?branch=scroll-dev-0116#3863bc2e87a8f70a36bfa261ceeb6baeb9542b01"
+source = "git+https://github.com/scroll-tech/openvm?branch=scroll-dev-0121#f841770d1cebc00bd646bd6a096ddcb0fef913a5"
 dependencies = [
  "derive-new",
  "derive_more 1.0.0",
  "eyre",
  "itertools 0.13.0",
- "num-bigint-dig",
+ "num-bigint 0.4.6",
  "num-integer",
  "num-traits",
  "once_cell",
@@ -2145,7 +2130,7 @@ dependencies = [
 [[package]]
 name = "openvm-ecc-guest"
 version = "0.2.0-alpha"
-source = "git+https://github.com/scroll-tech/openvm?branch=scroll-dev-0116#3863bc2e87a8f70a36bfa261ceeb6baeb9542b01"
+source = "git+https://github.com/scroll-tech/openvm?branch=scroll-dev-0121#f841770d1cebc00bd646bd6a096ddcb0fef913a5"
 dependencies = [
  "ecdsa",
  "elliptic-curve",
@@ -2156,7 +2141,6 @@ dependencies = [
  "k256",
  "lazy_static",
  "num-bigint 0.4.6",
- "num-bigint-dig",
  "num-traits",
  "openvm",
  "openvm-algebra-guest",
@@ -2172,7 +2156,7 @@ dependencies = [
 [[package]]
 name = "openvm-ecc-sw-setup"
 version = "0.2.0-alpha"
-source = "git+https://github.com/scroll-tech/openvm?branch=scroll-dev-0116#3863bc2e87a8f70a36bfa261ceeb6baeb9542b01"
+source = "git+https://github.com/scroll-tech/openvm?branch=scroll-dev-0121#f841770d1cebc00bd646bd6a096ddcb0fef913a5"
 dependencies = [
  "openvm-macros-common",
  "quote",
@@ -2182,7 +2166,7 @@ dependencies = [
 [[package]]
 name = "openvm-ecc-transpiler"
 version = "0.2.0-alpha"
-source = "git+https://github.com/scroll-tech/openvm?branch=scroll-dev-0116#3863bc2e87a8f70a36bfa261ceeb6baeb9542b01"
+source = "git+https://github.com/scroll-tech/openvm?branch=scroll-dev-0121#f841770d1cebc00bd646bd6a096ddcb0fef913a5"
 dependencies = [
  "openvm-ecc-guest",
  "openvm-instructions",
@@ -2196,12 +2180,12 @@ dependencies = [
 [[package]]
 name = "openvm-instructions"
 version = "0.2.0-alpha"
-source = "git+https://github.com/scroll-tech/openvm?branch=scroll-dev-0116#3863bc2e87a8f70a36bfa261ceeb6baeb9542b01"
+source = "git+https://github.com/scroll-tech/openvm?branch=scroll-dev-0121#f841770d1cebc00bd646bd6a096ddcb0fef913a5"
 dependencies = [
  "backtrace",
  "derive-new",
  "itertools 0.13.0",
- "num-bigint-dig",
+ "num-bigint 0.4.6",
  "num-traits",
  "openvm-instructions-derive",
  "openvm-stark-backend",
@@ -2213,7 +2197,7 @@ dependencies = [
 [[package]]
 name = "openvm-instructions-derive"
 version = "0.2.0-alpha"
-source = "git+https://github.com/scroll-tech/openvm?branch=scroll-dev-0116#3863bc2e87a8f70a36bfa261ceeb6baeb9542b01"
+source = "git+https://github.com/scroll-tech/openvm?branch=scroll-dev-0121#f841770d1cebc00bd646bd6a096ddcb0fef913a5"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -2223,7 +2207,7 @@ dependencies = [
 [[package]]
 name = "openvm-keccak256-circuit"
 version = "0.2.0-alpha"
-source = "git+https://github.com/scroll-tech/openvm?branch=scroll-dev-0116#3863bc2e87a8f70a36bfa261ceeb6baeb9542b01"
+source = "git+https://github.com/scroll-tech/openvm?branch=scroll-dev-0121#f841770d1cebc00bd646bd6a096ddcb0fef913a5"
 dependencies = [
  "bitcode",
  "derive-new",
@@ -2252,7 +2236,7 @@ dependencies = [
 [[package]]
 name = "openvm-keccak256-guest"
 version = "0.2.0-alpha"
-source = "git+https://github.com/scroll-tech/openvm?branch=scroll-dev-0116#3863bc2e87a8f70a36bfa261ceeb6baeb9542b01"
+source = "git+https://github.com/scroll-tech/openvm?branch=scroll-dev-0121#f841770d1cebc00bd646bd6a096ddcb0fef913a5"
 dependencies = [
  "openvm-platform",
  "serde",
@@ -2262,7 +2246,7 @@ dependencies = [
 [[package]]
 name = "openvm-keccak256-transpiler"
 version = "0.2.0-alpha"
-source = "git+https://github.com/scroll-tech/openvm?branch=scroll-dev-0116#3863bc2e87a8f70a36bfa261ceeb6baeb9542b01"
+source = "git+https://github.com/scroll-tech/openvm?branch=scroll-dev-0121#f841770d1cebc00bd646bd6a096ddcb0fef913a5"
 dependencies = [
  "openvm-instructions",
  "openvm-instructions-derive",
@@ -2276,7 +2260,7 @@ dependencies = [
 [[package]]
 name = "openvm-macros-common"
 version = "0.2.0-alpha"
-source = "git+https://github.com/scroll-tech/openvm?branch=scroll-dev-0116#3863bc2e87a8f70a36bfa261ceeb6baeb9542b01"
+source = "git+https://github.com/scroll-tech/openvm?branch=scroll-dev-0121#f841770d1cebc00bd646bd6a096ddcb0fef913a5"
 dependencies = [
  "syn 2.0.95",
 ]
@@ -2284,10 +2268,10 @@ dependencies = [
 [[package]]
 name = "openvm-mod-circuit-builder"
 version = "0.2.0-alpha"
-source = "git+https://github.com/scroll-tech/openvm?branch=scroll-dev-0116#3863bc2e87a8f70a36bfa261ceeb6baeb9542b01"
+source = "git+https://github.com/scroll-tech/openvm?branch=scroll-dev-0121#f841770d1cebc00bd646bd6a096ddcb0fef913a5"
 dependencies = [
  "itertools 0.13.0",
- "num-bigint-dig",
+ "num-bigint 0.4.6",
  "num-traits",
  "openvm-circuit",
  "openvm-circuit-primitives",
@@ -2303,7 +2287,7 @@ dependencies = [
 [[package]]
 name = "openvm-native-circuit"
 version = "0.2.0-alpha"
-source = "git+https://github.com/scroll-tech/openvm?branch=scroll-dev-0116#3863bc2e87a8f70a36bfa261ceeb6baeb9542b01"
+source = "git+https://github.com/scroll-tech/openvm?branch=scroll-dev-0121#f841770d1cebc00bd646bd6a096ddcb0fef913a5"
 dependencies = [
  "bitcode",
  "derive-new",
@@ -2330,7 +2314,7 @@ dependencies = [
 [[package]]
 name = "openvm-native-compiler"
 version = "0.2.0-alpha"
-source = "git+https://github.com/scroll-tech/openvm?branch=scroll-dev-0116#3863bc2e87a8f70a36bfa261ceeb6baeb9542b01"
+source = "git+https://github.com/scroll-tech/openvm?branch=scroll-dev-0121#f841770d1cebc00bd646bd6a096ddcb0fef913a5"
 dependencies = [
  "backtrace",
  "itertools 0.13.0",
@@ -2353,7 +2337,7 @@ dependencies = [
 [[package]]
 name = "openvm-native-compiler-derive"
 version = "0.2.0-alpha"
-source = "git+https://github.com/scroll-tech/openvm?branch=scroll-dev-0116#3863bc2e87a8f70a36bfa261ceeb6baeb9542b01"
+source = "git+https://github.com/scroll-tech/openvm?branch=scroll-dev-0121#f841770d1cebc00bd646bd6a096ddcb0fef913a5"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -2363,7 +2347,7 @@ dependencies = [
 [[package]]
 name = "openvm-native-recursion"
 version = "0.2.0-alpha"
-source = "git+https://github.com/scroll-tech/openvm?branch=scroll-dev-0116#3863bc2e87a8f70a36bfa261ceeb6baeb9542b01"
+source = "git+https://github.com/scroll-tech/openvm?branch=scroll-dev-0121#f841770d1cebc00bd646bd6a096ddcb0fef913a5"
 dependencies = [
  "cfg-if",
  "itertools 0.13.0",
@@ -2389,7 +2373,7 @@ dependencies = [
 [[package]]
 name = "openvm-native-transpiler"
 version = "0.2.0-alpha"
-source = "git+https://github.com/scroll-tech/openvm?branch=scroll-dev-0116#3863bc2e87a8f70a36bfa261ceeb6baeb9542b01"
+source = "git+https://github.com/scroll-tech/openvm?branch=scroll-dev-0121#f841770d1cebc00bd646bd6a096ddcb0fef913a5"
 dependencies = [
  "openvm-instructions",
  "openvm-transpiler",
@@ -2399,13 +2383,13 @@ dependencies = [
 [[package]]
 name = "openvm-pairing-circuit"
 version = "0.2.0-alpha"
-source = "git+https://github.com/scroll-tech/openvm?branch=scroll-dev-0116#3863bc2e87a8f70a36bfa261ceeb6baeb9542b01"
+source = "git+https://github.com/scroll-tech/openvm?branch=scroll-dev-0121#f841770d1cebc00bd646bd6a096ddcb0fef913a5"
 dependencies = [
  "derive-new",
  "derive_more 1.0.0",
  "eyre",
  "itertools 0.13.0",
- "num-bigint-dig",
+ "num-bigint 0.4.6",
  "num-traits",
  "once_cell",
  "openvm-algebra-circuit",
@@ -2430,7 +2414,7 @@ dependencies = [
 [[package]]
 name = "openvm-pairing-guest"
 version = "0.2.0-alpha"
-source = "git+https://github.com/scroll-tech/openvm?branch=scroll-dev-0116#3863bc2e87a8f70a36bfa261ceeb6baeb9542b01"
+source = "git+https://github.com/scroll-tech/openvm?branch=scroll-dev-0121#f841770d1cebc00bd646bd6a096ddcb0fef913a5"
 dependencies = [
  "group 0.13.0",
  "halo2curves-axiom",
@@ -2438,7 +2422,6 @@ dependencies = [
  "itertools 0.13.0",
  "lazy_static",
  "num-bigint 0.4.6",
- "num-bigint-dig",
  "num-traits",
  "openvm",
  "openvm-algebra-complex-macros",
@@ -2456,7 +2439,7 @@ dependencies = [
 [[package]]
 name = "openvm-pairing-transpiler"
 version = "0.2.0-alpha"
-source = "git+https://github.com/scroll-tech/openvm?branch=scroll-dev-0116#3863bc2e87a8f70a36bfa261ceeb6baeb9542b01"
+source = "git+https://github.com/scroll-tech/openvm?branch=scroll-dev-0121#f841770d1cebc00bd646bd6a096ddcb0fef913a5"
 dependencies = [
  "openvm-instructions",
  "openvm-instructions-derive",
@@ -2470,7 +2453,7 @@ dependencies = [
 [[package]]
 name = "openvm-platform"
 version = "0.2.0-alpha"
-source = "git+https://github.com/scroll-tech/openvm?branch=scroll-dev-0116#3863bc2e87a8f70a36bfa261ceeb6baeb9542b01"
+source = "git+https://github.com/scroll-tech/openvm?branch=scroll-dev-0121#f841770d1cebc00bd646bd6a096ddcb0fef913a5"
 dependencies = [
  "getrandom",
  "libm",
@@ -2482,7 +2465,7 @@ dependencies = [
 [[package]]
 name = "openvm-poseidon2-air"
 version = "0.2.0-alpha"
-source = "git+https://github.com/scroll-tech/openvm?branch=scroll-dev-0116#3863bc2e87a8f70a36bfa261ceeb6baeb9542b01"
+source = "git+https://github.com/scroll-tech/openvm?branch=scroll-dev-0121#f841770d1cebc00bd646bd6a096ddcb0fef913a5"
 dependencies = [
  "derivative",
  "itertools 0.13.0",
@@ -2502,7 +2485,7 @@ dependencies = [
 [[package]]
 name = "openvm-rv32-adapters"
 version = "0.2.0-alpha"
-source = "git+https://github.com/scroll-tech/openvm?branch=scroll-dev-0116#3863bc2e87a8f70a36bfa261ceeb6baeb9542b01"
+source = "git+https://github.com/scroll-tech/openvm?branch=scroll-dev-0121#f841770d1cebc00bd646bd6a096ddcb0fef913a5"
 dependencies = [
  "derive-new",
  "itertools 0.13.0",
@@ -2523,7 +2506,7 @@ dependencies = [
 [[package]]
 name = "openvm-rv32im-circuit"
 version = "0.2.0-alpha"
-source = "git+https://github.com/scroll-tech/openvm?branch=scroll-dev-0116#3863bc2e87a8f70a36bfa261ceeb6baeb9542b01"
+source = "git+https://github.com/scroll-tech/openvm?branch=scroll-dev-0121#f841770d1cebc00bd646bd6a096ddcb0fef913a5"
 dependencies = [
  "derive-new",
  "derive_more 1.0.0",
@@ -2548,7 +2531,7 @@ dependencies = [
 [[package]]
 name = "openvm-rv32im-guest"
 version = "0.2.0-alpha"
-source = "git+https://github.com/scroll-tech/openvm?branch=scroll-dev-0116#3863bc2e87a8f70a36bfa261ceeb6baeb9542b01"
+source = "git+https://github.com/scroll-tech/openvm?branch=scroll-dev-0121#f841770d1cebc00bd646bd6a096ddcb0fef913a5"
 dependencies = [
  "openvm-platform",
  "strum_macros",
@@ -2557,7 +2540,7 @@ dependencies = [
 [[package]]
 name = "openvm-rv32im-transpiler"
 version = "0.2.0-alpha"
-source = "git+https://github.com/scroll-tech/openvm?branch=scroll-dev-0116#3863bc2e87a8f70a36bfa261ceeb6baeb9542b01"
+source = "git+https://github.com/scroll-tech/openvm?branch=scroll-dev-0121#f841770d1cebc00bd646bd6a096ddcb0fef913a5"
 dependencies = [
  "openvm-instructions",
  "openvm-instructions-derive",
@@ -2573,7 +2556,7 @@ dependencies = [
 [[package]]
 name = "openvm-sdk"
 version = "0.2.0-alpha"
-source = "git+https://github.com/scroll-tech/openvm?branch=scroll-dev-0116#3863bc2e87a8f70a36bfa261ceeb6baeb9542b01"
+source = "git+https://github.com/scroll-tech/openvm?branch=scroll-dev-0121#f841770d1cebc00bd646bd6a096ddcb0fef913a5"
 dependencies = [
  "async-trait",
  "bitcode",
@@ -2616,7 +2599,7 @@ dependencies = [
 [[package]]
 name = "openvm-sha256-air"
 version = "0.2.0-alpha"
-source = "git+https://github.com/scroll-tech/openvm?branch=scroll-dev-0116#3863bc2e87a8f70a36bfa261ceeb6baeb9542b01"
+source = "git+https://github.com/scroll-tech/openvm?branch=scroll-dev-0121#f841770d1cebc00bd646bd6a096ddcb0fef913a5"
 dependencies = [
  "openvm-circuit-primitives",
  "openvm-stark-backend",
@@ -2627,7 +2610,7 @@ dependencies = [
 [[package]]
 name = "openvm-sha256-circuit"
 version = "0.2.0-alpha"
-source = "git+https://github.com/scroll-tech/openvm?branch=scroll-dev-0116#3863bc2e87a8f70a36bfa261ceeb6baeb9542b01"
+source = "git+https://github.com/scroll-tech/openvm?branch=scroll-dev-0121#f841770d1cebc00bd646bd6a096ddcb0fef913a5"
 dependencies = [
  "bitcode",
  "derive-new",
@@ -2651,7 +2634,7 @@ dependencies = [
 [[package]]
 name = "openvm-sha256-guest"
 version = "0.2.0-alpha"
-source = "git+https://github.com/scroll-tech/openvm?branch=scroll-dev-0116#3863bc2e87a8f70a36bfa261ceeb6baeb9542b01"
+source = "git+https://github.com/scroll-tech/openvm?branch=scroll-dev-0121#f841770d1cebc00bd646bd6a096ddcb0fef913a5"
 dependencies = [
  "openvm",
  "openvm-platform",
@@ -2661,7 +2644,7 @@ dependencies = [
 [[package]]
 name = "openvm-sha256-transpiler"
 version = "0.2.0-alpha"
-source = "git+https://github.com/scroll-tech/openvm?branch=scroll-dev-0116#3863bc2e87a8f70a36bfa261ceeb6baeb9542b01"
+source = "git+https://github.com/scroll-tech/openvm?branch=scroll-dev-0121#f841770d1cebc00bd646bd6a096ddcb0fef913a5"
 dependencies = [
  "openvm-instructions",
  "openvm-instructions-derive",
@@ -2731,12 +2714,11 @@ dependencies = [
 [[package]]
 name = "openvm-transpiler"
 version = "0.2.0-alpha"
-source = "git+https://github.com/scroll-tech/openvm?branch=scroll-dev-0116#3863bc2e87a8f70a36bfa261ceeb6baeb9542b01"
+source = "git+https://github.com/scroll-tech/openvm?branch=scroll-dev-0121#f841770d1cebc00bd646bd6a096ddcb0fef913a5"
 dependencies = [
  "derive_more 1.0.0",
  "elf",
  "eyre",
- "num-bigint-dig",
  "openvm-instructions",
  "openvm-platform",
  "openvm-stark-backend",
