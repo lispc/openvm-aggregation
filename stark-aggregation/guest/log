@@ -1,0 +1,333 @@
+app_pk commit: 0x0072be508e5d3c720b6f8269fd087d77443dd7aa72a3ce91c6825a85e2f0bf63
+exe commit: 0x001dfa66e0d224ac57cdd3784800aa7a161d2a1a9d879efa4ee715865624d70e
+input[..50]: [1, 1, 1, 2, 8, 1792105293, 345636733, 1658267500, 1297216152, 545732724, 17628396, 972053924, 1753217320, 8, 188853072, 1995686660, 1196718915, 930342423, 970540169, 394366604, 713865686, 789991399, 1, 1, 8, 647856510, 219694618, 767423644, 1814720801, 1053926690, 1937176534, 440410953, 961868013, 8, 1463475146, 108207010, 1876567892, 190361815, 1624390678, 614779133, 1297857410, 1792324472, 1, 21, 8, 562360945, 841328184, 857740451, 1961979644, 1829508469]
+pi byte 0: 1372899115
+pi byte 1: 439372300
+pi byte 2: 1775328280
+pi byte 3: 1532612241
+pi byte 4: 1899480968
+pi byte 5: 972296934
+pi byte 6: 1980051741
+pi byte 7: 1586692773
+pi byte 8: 1792105293
+pi byte 9: 345636733
+pi byte 10: 1658267500
+pi byte 11: 1297216152
+pi byte 12: 545732724
+pi byte 13: 17628396
+pi byte 14: 972053924
+pi byte 15: 1753217320
+pi byte 16: 3
+pi byte 17: 0
+pi byte 18: 0
+pi byte 19: 0
+pi byte 20: 0
+pi byte 21: 0
+pi byte 22: 0
+pi byte 23: 0
+pi byte 24: 0
+pi byte 25: 0
+pi byte 26: 0
+pi byte 27: 0
+pi byte 28: 0
+pi byte 29: 0
+pi byte 30: 0
+pi byte 31: 0
+pi byte 32: 0
+pi byte 33: 0
+pi byte 34: 0
+pi byte 35: 0
+pi byte 36: 0
+pi byte 37: 0
+pi byte 38: 0
+pi byte 39: 0
+pi byte 40: 0
+pi byte 41: 0
+pi byte 42: 0
+pi byte 43: 0
+pi byte 44: 0
+pi byte 45: 0
+pi byte 46: 0
+pi byte 47: 0
+digest1: 0x007864a7567073bbbe45ceab9c2f9097ffde0ef69870fd12830ed0c3c0f44a10
+digest2: 0x0085074dac037009db26486be86c2122f6d45891103752ccce590d6aab9900fa
+Bus 3 failed to balance the multiplicities for fields=[113, 6]. The bus connections for this were:
+   Air idx: 10, Air name: VmAirWrapper<ConvertAdapterAir<1, 4>, CastFCoreAir>, interaction type: Send, count: 1
+Bus 3 failed to balance the multiplicities for fields=[54, 7]. The bus connections for this were:
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 33, Air name: VariableRangeCheckerAir, interaction type: Receive, count: 52
+Bus 3 failed to balance the multiplicities for fields=[94, 6]. The bus connections for this were:
+   Air idx: 10, Air name: VmAirWrapper<ConvertAdapterAir<1, 4>, CastFCoreAir>, interaction type: Send, count: 1
+Bus 3 failed to balance the multiplicities for fields=[13, 7]. The bus connections for this were:
+   Air idx: 33, Air name: VariableRangeCheckerAir, interaction type: Receive, count: 1
+Bus 3 failed to balance the multiplicities for fields=[40, 7]. The bus connections for this were:
+   Air idx: 33, Air name: VariableRangeCheckerAir, interaction type: Receive, count: 1
+Bus 3 failed to balance the multiplicities for fields=[77, 6]. The bus connections for this were:
+   Air idx: 10, Air name: VmAirWrapper<ConvertAdapterAir<1, 4>, CastFCoreAir>, interaction type: Send, count: 1
+Bus 3 failed to balance the multiplicities for fields=[104, 6]. The bus connections for this were:
+   Air idx: 10, Air name: VmAirWrapper<ConvertAdapterAir<1, 4>, CastFCoreAir>, interaction type: Send, count: 1
+Bus 3 failed to balance the multiplicities for fields=[17, 7]. The bus connections for this were:
+   Air idx: 33, Air name: VariableRangeCheckerAir, interaction type: Receive, count: 1
+Bus 3 failed to balance the multiplicities for fields=[81, 6]. The bus connections for this were:
+   Air idx: 10, Air name: VmAirWrapper<ConvertAdapterAir<1, 4>, CastFCoreAir>, interaction type: Send, count: 1
+Bus 3 failed to balance the multiplicities for fields=[30, 7]. The bus connections for this were:
+   Air idx: 33, Air name: VariableRangeCheckerAir, interaction type: Receive, count: 1
+Bus 3 failed to balance the multiplicities for fields=[42, 7]. The bus connections for this were:
+   Air idx: 33, Air name: VariableRangeCheckerAir, interaction type: Receive, count: 1
+Bus 3 failed to balance the multiplicities for fields=[34, 7]. The bus connections for this were:
+   Air idx: 33, Air name: VariableRangeCheckerAir, interaction type: Receive, count: 1
+Bus 3 failed to balance the multiplicities for fields=[106, 6]. The bus connections for this were:
+   Air idx: 10, Air name: VmAirWrapper<ConvertAdapterAir<1, 4>, CastFCoreAir>, interaction type: Send, count: 1
+Bus 3 failed to balance the multiplicities for fields=[27, 7]. The bus connections for this were:
+   Air idx: 33, Air name: VariableRangeCheckerAir, interaction type: Receive, count: 1
+Bus 3 failed to balance the multiplicities for fields=[105, 6]. The bus connections for this were:
+   Air idx: 10, Air name: VmAirWrapper<ConvertAdapterAir<1, 4>, CastFCoreAir>, interaction type: Send, count: 1
+Bus 3 failed to balance the multiplicities for fields=[98, 6]. The bus connections for this were:
+   Air idx: 10, Air name: VmAirWrapper<ConvertAdapterAir<1, 4>, CastFCoreAir>, interaction type: Send, count: 1
+Bus 3 failed to balance the multiplicities for fields=[118, 6]. The bus connections for this were:
+   Air idx: 10, Air name: VmAirWrapper<ConvertAdapterAir<1, 4>, CastFCoreAir>, interaction type: Send, count: 1
+Bus 3 failed to balance the multiplicities for fields=[41, 7]. The bus connections for this were:
+   Air idx: 33, Air name: VariableRangeCheckerAir, interaction type: Receive, count: 1
+Bus 3 failed to balance the multiplicities for fields=[49, 7]. The bus connections for this were:
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 25, Air name: VmAirWrapper<Rv32LoadStoreAdapterAir, LoadSignExtendCoreAir<4, 8>, interaction type: Send, count: 1
+   Air idx: 33, Air name: VariableRangeCheckerAir, interaction type: Receive, count: 92
+Bus 3 failed to balance the multiplicities for fields=[91, 6]. The bus connections for this were:
+   Air idx: 10, Air name: VmAirWrapper<ConvertAdapterAir<1, 4>, CastFCoreAir>, interaction type: Send, count: 1
+thread 'main' panicked at /home/ubuntu/.cargo/git/checkouts/stark-backend-bcfa8b09bc28ca79/47a0bda/crates/stark-backend/src/air_builders/debug/check_constraints.rs:164:9:
+LogUp multiset equality check failed.
+stack backtrace:
+   0: rust_begin_unwind
+             at /rustc/1e4f10ba6476e48a42a79b9f846a2d9366525b9e/library/std/src/panicking.rs:665:5
+   1: core::panicking::panic_fmt
+             at /rustc/1e4f10ba6476e48a42a79b9f846a2d9366525b9e/library/core/src/panicking.rs:75:14
+   2: openvm_stark_backend::air_builders::debug::check_constraints::check_logup
+             at /home/ubuntu/.cargo/git/checkouts/stark-backend-bcfa8b09bc28ca79/47a0bda/crates/stark-backend/src/air_builders/debug/check_constraints.rs:164:9
+   3: openvm_stark_backend::prover::debug_constraints_and_interactions::{{closure}}
+             at /home/ubuntu/.cargo/git/checkouts/stark-backend-bcfa8b09bc28ca79/47a0bda/crates/stark-backend/src/prover/mod.rs:504:13
+   4: std::thread::local::LocalKey<T>::try_with
+             at /home/ubuntu/.rustup/toolchains/nightly-2024-10-30-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/thread/local.rs:283:12
+   5: std::thread::local::LocalKey<T>::with
+             at /home/ubuntu/.rustup/toolchains/nightly-2024-10-30-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/thread/local.rs:260:9
+   6: openvm_stark_backend::prover::debug_constraints_and_interactions
+             at /home/ubuntu/.cargo/git/checkouts/stark-backend-bcfa8b09bc28ca79/47a0bda/crates/stark-backend/src/prover/mod.rs:461:23
+   7: openvm_stark_backend::prover::MultiTraceStarkProver<SC>::prove
+             at /home/ubuntu/.cargo/git/checkouts/stark-backend-bcfa8b09bc28ca79/47a0bda/crates/stark-backend/src/prover/mod.rs:226:9
+   8: openvm_stark_backend::engine::StarkEngine::prove
+             at /home/ubuntu/.cargo/git/checkouts/stark-backend-bcfa8b09bc28ca79/47a0bda/crates/stark-backend/src/engine.rs:148:9
+   9: openvm_circuit::arch::vm::VirtualMachine<SC,E,VC>::prove::{{closure}}::{{closure}}
+             at /home/ubuntu/openvm/crates/vm/src/arch/vm.rs:491:34
+  10: tracing::span::Span::in_scope
+             at /home/ubuntu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tracing-0.1.41/src/span.rs:1102:9
+  11: openvm_circuit::arch::vm::VirtualMachine<SC,E,VC>::prove::{{closure}}
+             at /home/ubuntu/openvm/crates/vm/src/arch/vm.rs:490:17
+  12: core::iter::adapters::map::map_fold::{{closure}}
+             at /home/ubuntu/.rustup/toolchains/nightly-2024-10-30-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/adapters/map.rs:88:28
+  13: <core::iter::adapters::enumerate::Enumerate<I> as core::iter::traits::iterator::Iterator>::fold::enumerate::{{closure}}
+             at /home/ubuntu/.rustup/toolchains/nightly-2024-10-30-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/adapters/enumerate.rs:107:27
+  14: <alloc::vec::into_iter::IntoIter<T,A> as core::iter::traits::iterator::Iterator>::fold
+             at /home/ubuntu/.rustup/toolchains/nightly-2024-10-30-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/vec/into_iter.rs:318:25
+  15: <core::iter::adapters::enumerate::Enumerate<I> as core::iter::traits::iterator::Iterator>::fold
+             at /home/ubuntu/.rustup/toolchains/nightly-2024-10-30-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/adapters/enumerate.rs:113:9
+  16: <core::iter::adapters::map::Map<I,F> as core::iter::traits::iterator::Iterator>::fold
+             at /home/ubuntu/.rustup/toolchains/nightly-2024-10-30-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/adapters/map.rs:128:9
+  17: core::iter::traits::iterator::Iterator::for_each
+             at /home/ubuntu/.rustup/toolchains/nightly-2024-10-30-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/traits/iterator.rs:813:9
+  18: alloc::vec::Vec<T,A>::extend_trusted
+             at /home/ubuntu/.rustup/toolchains/nightly-2024-10-30-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/vec/mod.rs:3551:17
+  19: <alloc::vec::Vec<T,A> as alloc::vec::spec_extend::SpecExtend<T,I>>::spec_extend
+             at /home/ubuntu/.rustup/toolchains/nightly-2024-10-30-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/vec/spec_extend.rs:29:9
+  20: <alloc::vec::Vec<T> as alloc::vec::spec_from_iter_nested::SpecFromIterNested<T,I>>::from_iter
+             at /home/ubuntu/.rustup/toolchains/nightly-2024-10-30-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/vec/spec_from_iter_nested.rs:62:9
+  21: <alloc::vec::Vec<T> as alloc::vec::spec_from_iter_nested::SpecFromIterNested<T,I>>::from_iter{{reify.shim}}
+             at /home/ubuntu/.rustup/toolchains/nightly-2024-10-30-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/vec/spec_from_iter_nested.rs:52:5
+  22: alloc::vec::in_place_collect::<impl alloc::vec::spec_from_iter::SpecFromIter<T,I> for alloc::vec::Vec<T>>::from_iter
+             at /home/ubuntu/.rustup/toolchains/nightly-2024-10-30-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/vec/in_place_collect.rs:246:9
+  23: <alloc::vec::Vec<T> as core::iter::traits::collect::FromIterator<T>>::from_iter
+             at /home/ubuntu/.rustup/toolchains/nightly-2024-10-30-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/vec/mod.rs:3410:9
+  24: core::iter::traits::iterator::Iterator::collect
+             at /home/ubuntu/.rustup/toolchains/nightly-2024-10-30-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/traits/iterator.rs:2001:9
+  25: openvm_circuit::arch::vm::VirtualMachine<SC,E,VC>::prove
+             at /home/ubuntu/openvm/crates/vm/src/arch/vm.rs:493:14
+  26: <openvm_sdk::prover::vm::local::VmLocalProver<SC,VC,E> as openvm_sdk::prover::vm::ContinuationVmProver<SC>>::prove
+             at /home/ubuntu/openvm/crates/sdk/src/prover/vm/local.rs:91:27
+  27: openvm_sdk::prover::app::AppProver<VC>::generate_app_proof::{{closure}}
+             at /home/ubuntu/openvm/crates/sdk/src/prover/app.rs:71:13
+  28: tracing::span::Span::in_scope
+             at /home/ubuntu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tracing-0.1.41/src/span.rs:1102:9
+  29: openvm_sdk::prover::app::AppProver<VC>::generate_app_proof
+             at /home/ubuntu/openvm/crates/sdk/src/prover/app.rs:60:9
+  30: openvm_sdk::prover::stark::StarkProver<VC>::generate_proof_for_root_program
+             at /home/ubuntu/openvm/crates/sdk/src/prover/stark.rs:60:25
+  31: openvm_sdk::Sdk::generate_root_proof
+             at /home/ubuntu/openvm/crates/sdk/src/lib.rs:199:34
+  32: cargo_openvm::commands::prove::ProveCmd::run
+             at /home/ubuntu/openvm/crates/cli/src/commands/prove.rs:98:34
+  33: cargo_openvm::main::{{closure}}
+             at /home/ubuntu/openvm/crates/cli/src/bin/cargo-openvm.rs:45:38
+  34: <core::pin::Pin<P> as core::future::future::Future>::poll
+             at /home/ubuntu/.rustup/toolchains/nightly-2024-10-30-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/future/future.rs:123:9
+  35: tokio::runtime::park::CachedParkThread::block_on::{{closure}}
+             at /home/ubuntu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tokio-1.43.0/src/runtime/park.rs:284:63
+  36: tokio::runtime::coop::with_budget
+             at /home/ubuntu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tokio-1.43.0/src/runtime/coop.rs:107:5
+  37: tokio::runtime::coop::budget
+             at /home/ubuntu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tokio-1.43.0/src/runtime/coop.rs:73:5
+  38: tokio::runtime::park::CachedParkThread::block_on
+             at /home/ubuntu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tokio-1.43.0/src/runtime/park.rs:284:31
+  39: tokio::runtime::context::blocking::BlockingRegionGuard::block_on
+             at /home/ubuntu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tokio-1.43.0/src/runtime/context/blocking.rs:66:9
+  40: tokio::runtime::scheduler::multi_thread::MultiThread::block_on::{{closure}}
+             at /home/ubuntu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tokio-1.43.0/src/runtime/scheduler/multi_thread/mod.rs:87:22
+  41: tokio::runtime::context::runtime::enter_runtime
+             at /home/ubuntu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tokio-1.43.0/src/runtime/context/runtime.rs:65:16
+  42: tokio::runtime::scheduler::multi_thread::MultiThread::block_on
+             at /home/ubuntu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tokio-1.43.0/src/runtime/scheduler/multi_thread/mod.rs:86:9
+  43: tokio::runtime::runtime::Runtime::block_on_inner
+             at /home/ubuntu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tokio-1.43.0/src/runtime/runtime.rs:370:50
+  44: tokio::runtime::runtime::Runtime::block_on
+             at /home/ubuntu/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tokio-1.43.0/src/runtime/runtime.rs:340:13
+  45: cargo_openvm::main
+             at /home/ubuntu/openvm/crates/cli/src/bin/cargo-openvm.rs:40:5
+  46: core::ops::function::FnOnce::call_once
+             at /home/ubuntu/.rustup/toolchains/nightly-2024-10-30-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ops/function.rs:250:5
+note: Some details are omitted, run with `RUST_BACKTRACE=full` for a verbose backtrace.
